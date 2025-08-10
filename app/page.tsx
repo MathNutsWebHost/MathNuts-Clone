@@ -1,41 +1,46 @@
 import Image from "next/image"
-import { SectionTitle, Lead } from "@/components/section"
+import { inter, oswald } from "@/lib/fonts"
+import { Lead, SectionTitle } from "@/components/section"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { bebas, inter } from "@/lib/fonts"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function Page() {
   return (
     <div className={`${inter.className}`}>
       <SiteHeader />
+
       <main className="mx-auto max-w-5xl px-4">
+        {/* Hero */}
         <section className="py-12 md:py-20">
-          <h1 className={`${bebas.className} text-[#1b306a] text-5xl md:text-7xl leading-[1.05] text-center`}>
+          <h1 className={`${oswald.className} text-[#162B6F] text-5xl md:text-7xl leading-[1.05] text-center`}>
             Nurturing Future
             <br />
             Mathematicians
           </h1>
-          <Lead className="mt-6">
-            Does your child yearn for mathematical insights? Do they want to go deeper into math? Do you wish there was
-            a mentor to take them on a journey of discovery to help build deep, intuitive understanding?
-          </Lead>
+
+          <div className="mt-6 grid gap-2 text-[18px] font-semibold text-slate-800">
+            <p>Does your child yearn for mathematical insights? Do they want to go deeper into math? Do you</p>
+            <p>wish there was a mentor to take them on a journey of discovery of higher math and to help them</p>
+            <p>build a deep intuitive understanding?</p>
+          </div>
         </section>
 
+        {/* Mission */}
         <SectionTitle>MISSION</SectionTitle>
         <Lead className="mt-4">
-          Invest in the next generation of mathematicians by connecting exceptionally talented children with mentors
-          through weekly classes and guided practice.
+          Invest in the next generation of mathematicians by connecting exceptionally mathematically talented children
+          with mathematicians and mentoring them through weekly classes and homework.
         </Lead>
 
+        {/* Classes */}
         <SectionTitle className="mt-12">CLASSES</SectionTitle>
 
         <div className="mt-6 rounded-xl overflow-hidden border bg-muted/20">
-          {/* Using fill requires the parent to be position: relative [^1][^2] */}
-          <div className="relative w-full aspect-[16/7]">
+          {/* Using next/image fill requires a relatively positioned parent. */}
+          <div className="relative w-full aspect-[16/6]">
             <Image
-              src="/images/mathnuts-home.jpg"
-              alt="Math chalkboard with equations"
+              src="/images/chalkboard.avif"
+              alt="Chalkboard filled with math equations"
               fill
               className="object-cover"
               priority
@@ -43,41 +48,178 @@ export default function Page() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mt-8">
-          <Card>
-            <CardHeader>
-              <CardTitle className={`${bebas.className} tracking-wide text-[#1b306a]`}>Math Circles</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-slate-700">
-              Collaborative problem solving focused on patterns, logic, and discovery. Ideal for building mathematical
-              intuition.
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className={`${bebas.className} tracking-wide text-[#1b306a]`}>Proofs & Reasoning</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-slate-700">
-              Transition from computation to formal thinking. Learn to write and critique clear, rigorous arguments.
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader>
-              <CardTitle className={`${bebas.className} tracking-wide text-[#1b306a]`}>Contest Track</CardTitle>
-            </CardHeader>
-            <CardContent className="text-sm text-slate-700">
-              Enrichment and training for contests like AMC and AIME with emphasis on strategy and creative problem
-              solving.
-            </CardContent>
-          </Card>
+        <Lead className="mt-6">
+          The classes are on topics of fundamental importance to mathematicians which are neither covered in school,
+          competition training, nor generally available in core courses at university. Typically, small groups of 6
+          students convene virtually once a week during the non-summer months, where they participate in 75-minute
+          interactive lessons centered around specific topics. We avoid scheduling classes during the demanding pre-exam
+          weeks throughout the school year, ensuring students can fully focus on their academic commitments during those
+          times. Class timings and dates are determined based on the availability of all participants collectively.
+        </Lead>
+
+        {/* Students */}
+        <SectionTitle>STUDENTS</SectionTitle>
+        <Lead className="mt-4">
+          Students should be 10 -13 years old, which we believe is a critical age for the development of deep thinking
+          habits in mathematics. The Math Nuts program will continue to extend into the high school years as enrolled
+          students progress. Topics are selected considering the mathematical maturity of the students.
+        </Lead>
+
+        {/* Homework */}
+        <SectionTitle>HOMEWORK</SectionTitle>
+        <Lead className="mt-4">
+          To reinforce the lecture discussions, students are assigned weekly homework that takes approximately 1- 2
+          hours of their time. These assignments aim to enhance their ability to write proofs and verify understanding
+          and appreciation of the subject matter.
+        </Lead>
+
+        {/* Tuition */}
+        <SectionTitle>TUITION</SectionTitle>
+        <Lead className="mt-4">
+          The tuition for the program is $125 per class, and we offer financial assistance tailored to individual needs.
+          We strongly encourage girls to apply, as we strive to foster inclusivity and diversity within our program.
+        </Lead>
+
+        {/* Philosophy */}
+        <SectionTitle>PHILOSOPHY</SectionTitle>
+        <div className="mt-4 space-y-4">
+          <Lead>
+            At this age, we look for students&apos; increasing confidence in math as the primary sign of future success.
+            This can be measured by weekly homework, improved proofwriting ability, and class participation.
+          </Lead>
+          <Lead>
+            We believe in investing in students&apos; long-term education rather than short-term goals. Therefore,
+            MathNuts emphasizes the depth and breadth of mathematical knowledge and preparation for eventual research.
+            Research in mathematics is not like the sciences: It is unrealistic to expect students to produce original
+            research papers while still learning concepts. However, studying new ideas under a mentor&apos;s supervision
+            leads the student to ask questions, pose conjectures, and then study more as new avenues of exploration are
+            opened. As mathematicians, we deeply understand that the iterative journey of learning and questioning forms
+            the very essence of research in mathematics. Our role is to guide the students as they navigate this
+            enriching process.
+          </Lead>
+          <Lead>Note that mathematics progresses from answers to questions!</Lead>
         </div>
 
-        <SectionTitle className="mt-16">ABOUT</SectionTitle>
-        <Lead className="mt-4 mb-20">
-          We’re educators and mathematicians passionate about nurturing curiosity and deep understanding through
-          thoughtful, student‑centered instruction.
+        {/* Application Process */}
+        <SectionTitle>APPLICATION PROCESS</SectionTitle>
+        <div className="mt-4 space-y-4">
+          <Lead>
+            If you are enthusiastic about joining our program, we kindly request you to complete the application form.
+            All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
+            to applicants who pass the first screening of the submitted application. The application deadline for the
+            next batch is December 15th, 2024 and the class start date is January third week.
+          </Lead>
+          <Lead>
+            Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
+            2nd) and the Spring cycle (November 15th to December 15th). Fall classes commence in the third week of
+            August, while spring classes begin in the third week of January. We look forward to receiving your
+            applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
+            <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
+              mathnuts@googlegroups.com
+            </a>
+            .
+          </Lead>
+        </div>
+
+        {/* Our History */}
+        <SectionTitle>OUR HISTORY</SectionTitle>
+        <Lead className="mt-4">
+          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp. Dr. John
+          Berman, former IMO gold medallist, and independent mathematician with a passion for interacting with future
+          mathematicians, joined the program in mid-2022.
         </Lead>
+
+        {/* Upcoming Courses */}
+        <SectionTitle>UPCOMING COURSES</SectionTitle>
+        <div className="mt-4 space-y-6">
+          <Lead>
+            There are two strands, one for students aged 10/11, and one for age 12/13. Students worldwide are eligible
+            to apply. With fewer than 10 students per class, the program ensures personalized attention, fostering a
+            learning environment conducive to young minds.&nbsp;
+          </Lead>
+          <div className="space-y-2">
+            <p className="font-semibold">I. Set Theory and Beyond.</p>
+            <Lead>
+              Students will go beyond basic ideas of countable and uncountable sets to study topics such as the
+              Cantor-Schroeder-Bernstein Theorem, consequences of the axiom of choice, and others. These topics prepare
+              students to study structures that appear throughout mathematics such as graphs and posets, groups and
+              rings, topological and metric spaces, etc.
+            </Lead>
+          </div>
+          <div className="space-y-2">
+            <p className="font-semibold">II. Geometric Transformations</p>
+            <Lead>
+              For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid’s Elements;
+              lengths and angles were not measured but compared. Then, Rene Descartes (1596–1650) introduced the method
+              of doing geometry using algebra and numbers – analytic geometry. Later, Felix Klein (1849–1925) introduced
+              a more general method (transformations), still involving algebra, that was applicable to other geometries
+              as well. The fundamental geometrical notion of congruence has to do with moving (transforming) a figure to
+              coincide with another. The course studies geometric transformations that preserve distance in the
+              Euclidean plane. These transformations will be seen to describe ALL the symmetry patterns in the plane
+              (and 3‑D which we don’t cover). The course begins with an introduction to Analytic geometry which is also
+              useful for Calculus.
+            </Lead>
+          </div>
+          <div className="space-y-2">
+            <p className="font-semibold">III. Affine and Projective geometries</p>
+            <Lead>
+              The goal of this course is to develop a clear grasp of the various geometries and their relationships to
+              one another. For this reason, we study projective geometry for it entails a unified view and closely
+              relates the different geometries, including Euclidean geometry and non‑Euclidean geometries, as special
+              cases. And the geometry most closely related to projective geometry is affine geometry; studying affine
+              geometry enables greater understanding of projective geometry; so we introduce the former first. A way to
+              see the various geometries, without needing prerequisites in advanced algebra, is the axiomatic approach
+              which we use in the course.
+            </Lead>
+          </div>
+          <div className="space-y-2">
+            <p className="font-semibold">IV. Non‑Euclidean geometry</p>
+            <Lead>
+              Although Non‑Euclidean geometry means geometries other than Euclidean geometry, the reference in
+              mathematics is to two particular geometries – Elliptic geometry and Hyperbolic geometry. The impression of
+              school students and the public in general is that geometry consists of Euclidean geometry, whereas
+              Euclidean geometry is only one of many geometries. However, there are two geometries which are related to
+              Euclidean geometry and whose study gives a greater understanding of what Euclidean geometry is really
+              about. There are three geometries called constant curvature geometries where a ‘plane’ of the geometry has
+              a curvature that does not change. In Euclidean geometry, the plane is flat in the sense that its curvature
+              is zero. In contrast, a hyperbolic plane has negative curvature like that of a horse saddle and an
+              elliptic plane has positive curvature like a sphere. While the emphasis in this course is these two
+              geometries, we begin with those concepts of Euclidean geometry in which it differs — from the other two
+              constant‑curvature geometries — and the study leads us to Elliptic and Hyperbolic geometry. This course is
+              ideal for building in the student an appreciation of the idea of proof in mathematics and to improve the
+              student’s ability to construct proofs.
+            </Lead>
+          </div>
+        </div>
+
+        {/* Founder */}
+        <SectionTitle className="mt-16">Founder</SectionTitle>
+        <div className="mt-6 grid gap-4 sm:grid-cols-[200px_1fr] items-start">
+          {/* Use a remote <img> tag to avoid remote image config */}
+          <div className="w-[200px] h-[199px] rounded-full overflow-hidden border shadow">
+            <img
+              src="https://static.wixstatic.com/media/3c18fe_783aea98d40e4b8db8ba3bb92467a294~mv2.jpg/v1/crop/x_2,y_0,w_471,h_471/fill/w_200,h_199,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/George%20Thomas.jpg"
+              alt="George R. Thomas portrait"
+              width={200}
+              height={199}
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <p className="text-[18px] text-center sm:text-left leading-[1.75] text-[#162B6F]">
+              Dr.&nbsp; Thomas is an independent mathematician with long experience teaching and mentoring in summer
+              programs for students showing high promise in mathematics. He founded Canada/USA Mathcamp, MathPath, and
+              Epsilon Camp.
+            </p>
+            <p className={`${oswald.className} text-[#162B6F] text-[18px] text-center sm:text-left mt-2`}>
+              George R. Thomas
+            </p>
+          </div>
+        </div>
+
+        <div className="mb-20" />
       </main>
+
       <SiteFooter />
     </div>
   )

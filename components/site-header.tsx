@@ -1,39 +1,30 @@
-"use client"
-
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { bebas } from "@/lib/fonts"
-
-const nav = [
-  { href: "/", label: "Home" },
-  { href: "/apply", label: "Apply" },
-  { href: "/faq", label: "FAQ" },
-]
 
 export function SiteHeader() {
-  const pathname = usePathname()
   return (
-    <header className="sticky top-0 z-40 bg-white/80 backdrop-blur border-b">
-      <div className="mx-auto max-w-5xl px-4 h-16 flex items-center gap-6">
-        <Link href="/" className={cn("text-2xl tracking-wide text-[#142a5e]", bebas.className)}>
-          MathNuts
-        </Link>
-        <nav className="ml-auto">
-          <ul className="flex items-center gap-6 text-sm">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "transition-colors text-[#1b306a]/80 hover:text-[#1b306a]",
-                    pathname === item.href && "text-[#1b306a] font-medium",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+    <header className="w-full">
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="pt-8 pb-6">
+          <h1 className="text-[40px] leading-none tracking-tight text-[#162B6F] font-bold font-[Oswald]">MathNuts</h1>
+        </div>
+        <div className="h-px w-[940px] max-w-full bg-[#162B6F]/85" />
+        <nav aria-label="Site" className="w-full">
+          <ul className="flex items-center justify-center gap-6 py-3 text-sm text-[#162B6F]">
+            <li>
+              <Link href="/" className="hover:text-[#142E84]">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/apply" className="hover:text-[#142E84]">
+                Apply
+              </Link>
+            </li>
+            <li>
+              <Link href="/faq" className="hover:text-[#142E84]">
+                FAQ
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>

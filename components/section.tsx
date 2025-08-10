@@ -1,19 +1,33 @@
 import type React from "react"
-import { bebas } from "@/lib/fonts"
+import { oswald } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 
-export function SectionTitle({ children, className }: { children: React.ReactNode; className?: string }) {
+export function SectionTitle({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
   return (
     <h2
-      className={cn("text-3xl md:text-4xl tracking-wide text-center text-[#1b306a] mt-10", bebas.className, className)}
+      className={cn(
+        "mt-10 text-[40px] leading-[1.35] text-center text-[#162B6F] font-bold",
+        oswald.className,
+        className,
+      )}
     >
       {children}
     </h2>
   )
 }
 
-export function Lead({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <p className={cn("text-center text-base md:text-lg text-slate-700 max-w-3xl mx-auto", className)}>{children}</p>
-  )
+export function Lead({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
+  return <p className={cn("text-[15px] leading-[1.875] text-slate-800", className)}>{children}</p>
 }
