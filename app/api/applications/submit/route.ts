@@ -4,7 +4,6 @@ type Env = {
   GMAIL_CLIENT_ID?: string
   GMAIL_CLIENT_SECRET?: string
   GMAIL_REFRESH_TOKEN?: string
-  GMAIL_SENDER_EMAIL?: string
   GMAIL_RECIPIENT_EMAIL?: string
 }
 
@@ -19,12 +18,10 @@ export async function POST(req: NextRequest) {
       GMAIL_CLIENT_ID: process.env.GMAIL_CLIENT_ID,
       GMAIL_CLIENT_SECRET: process.env.GMAIL_CLIENT_SECRET,
       GMAIL_REFRESH_TOKEN: process.env.GMAIL_REFRESH_TOKEN,
-      GMAIL_SENDER_EMAIL: process.env.GMAIL_SENDER_EMAIL,
       GMAIL_RECIPIENT_EMAIL: process.env.GMAIL_RECIPIENT_EMAIL,
     }
 
-    // Validate env
-    if (!env.GMAIL_CLIENT_ID || !env.GMAIL_CLIENT_SECRET || !env.GMAIL_REFRESH_TOKEN || !env.GMAIL_SENDER_EMAIL) {
+    if (!env.GMAIL_CLIENT_ID || !env.GMAIL_CLIENT_SECRET || !env.GMAIL_REFRESH_TOKEN) {
       return NextResponse.json(
         { error: "Email is not configured. Missing Gmail OAuth2 environment variables." },
         { status: 500 },
@@ -35,7 +32,6 @@ export async function POST(req: NextRequest) {
 
     const form = await req.formData()
 
-    // Collect fields safely
     const fields: Record<string, string> = {}
     for (const key of [
       "parentName",
@@ -57,9 +53,7 @@ export async function POST(req: NextRequest) {
     }
 
     const attachment = form.get("attachment") as File | null
-    const attachmentPart = ""
     if (attachment) {
-      // Enforce PDF and a reasonable size (<= 10MB)
       if (attachment.type !== "application/pdf") {
         return NextResponse.json({ error: "Attachment must be a PDF." }, { status: 400 })
       }
@@ -69,7 +63,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Access Token via refresh token
+    // Exchange refresh token for access token
     const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -92,7 +86,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "No access token received from Google." }, { status: 500 })
     }
 
-    // Build email body text
+    // Get the authenticated Gmail account address for the From header
+    const profileRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/profile", {
+      headers: { Authorization: `Bearer ${accessToken}` },
+      cache: "no-store",
+    })
+    if (!profileRes.ok) {
+      const info = await profileRes.text()
+      return NextResponse.json({ error: `Failed to get Gmail profile: ${info}` }, { status: 500 })
+    }
+    const profile = (await profileRes.json()) as { emailAddress?: string }
+    const accountEmail = profile.emailAddress
+    if (!accountEmail) {
+      return NextResponse.json({ error: "Could not determine sender email from Gmail profile." }, { status: 500 })
+    }
+
+    const applicantEmail = fields.email?.trim()
+    const replyTo = applicantEmail || accountEmail
+
+    // Build email text body
     const pretty = (label: string, value?: string) => `${label}: ${value || ""}`
     const lines = [
       "New MathNuts Application Submission",
@@ -101,7 +113,7 @@ export async function POST(req: NextRequest) {
       pretty("Student Name", fields.studentName),
       pretty("Age", fields.age),
       pretty("Schooling", fields.schooling),
-      pretty("Email", fields.email),
+      pretty("Applicant Email", fields.email),
       pretty("Phone", fields.phone),
       "",
       pretty("Recent Math Books", fields.recentBooks),
@@ -125,8 +137,9 @@ export async function POST(req: NextRequest) {
 
     const boundary = "mixed_" + Math.random().toString(36).slice(2)
     const headers = [
-      `From: ${env.GMAIL_SENDER_EMAIL}`,
+      `From: ${accountEmail}`,
       `To: ${RECIPIENT}`,
+      `Reply-To: ${replyTo}`,
       `Subject: ${encodeURIComponent(
         `New Application - ${fields.studentName || "Student"} (${fields.parentName || "Parent"})`,
       ).replace(/%20/g, " ")}`,

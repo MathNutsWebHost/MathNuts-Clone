@@ -227,9 +227,9 @@ export default function ApplicationFormPage() {
 
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Email
+                Email <span className="text-[13px]">*</span>
               </label>
-              <InputUnderline name="email" type="email" placeholder="email@example.com" />
+              <InputUnderline name="email" type="email" required placeholder="email@example.com" />
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
