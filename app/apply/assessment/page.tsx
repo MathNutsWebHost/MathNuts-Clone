@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useRef, useState } from "react"
 import { oswald, inter } from "@/lib/fonts"
 import { SiteHeader } from "@/components/site-header"
@@ -9,10 +8,10 @@ import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 
-const BRAND_HEADING = "#162b6f" // MathNuts heading/nav color
-const BRAND_LABEL = "#4a5aa6" // small bluish labels
-const UNDERLINE = "#c7cfe8" // light underline border
-const BRAND_BTN = "#5570b4" // submit/button fill
+const BRAND_HEADING = "#162b6f"
+const BRAND_LABEL = "#4a5aa6"
+const UNDERLINE = "#c7cfe8"
+const BRAND_BTN = "#5570b4"
 const BRAND_BTN_HOVER = "#4b66ab"
 
 function InputUnderline(props: React.InputHTMLAttributes<HTMLInputElement>) {
@@ -65,7 +64,12 @@ function TextareaUnderline(props: React.TextareaHTMLAttributes<HTMLTextAreaEleme
 
 export default function AssessmentPage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const [fileName, setFileName] = useState("assessment_firstname_lastname.pdf")
+  const [fileName, setFileName] = useState("No file chosen")
+  const [fileObj, setFileObj] = useState<File | null>(null)
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const onChooseFile = () => fileInputRef.current?.click()
   const onFileChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,16 +78,53 @@ export default function AssessmentPage() {
     if (!f.name.toLowerCase().endsWith(".pdf")) {
       alert("Please upload a single PDF file.")
       e.target.value = ""
+      setFileObj(null)
+      setFileName("No file chosen")
       return
     }
+    setFileObj(f)
     setFileName(f.name)
+  }
+
+  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setSuccess(null)
+    setError(null)
+    if (!fileObj) {
+      setError("Please attach your assessment PDF.")
+      return
+    }
+
+    try {
+      setIsSubmitting(true)
+      const fd = new FormData(e.currentTarget)
+      // Ensure the file is included with the name "attachment"
+      fd.set("attachment", fileObj, fileObj.name)
+
+      const res = await fetch("/api/assessment/submit", {
+        method: "POST",
+        body: fd,
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok) {
+        throw new Error(data?.error || "Submission failed")
+      }
+
+      setSuccess("Assessment submitted successfully. Thank you!")
+      e.currentTarget.reset()
+      setFileObj(null)
+      setFileName("No file chosen")
+    } catch (err: any) {
+      setError(err?.message || "Something went wrong. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
     <div className={inter.className}>
       <SiteHeader />
       <main className="mx-auto max-w-5xl px-5 md:px-6 py-12 md:py-16">
-        {/* Heading */}
         <h1
           className={`${oswald.className} font-bold leading-tight text-4xl md:text-[40px]`}
           style={{ color: BRAND_HEADING }}
@@ -91,7 +132,6 @@ export default function AssessmentPage() {
           Assessment
         </h1>
 
-        {/* Instruction bullets */}
         <ul className="mt-6 list-disc pl-5 space-y-2 text-slate-700 max-w-4xl">
           <li>The assessment file sent to you includes detailed instructions on how to complete and submit work.</li>
           <li>
@@ -105,16 +145,8 @@ export default function AssessmentPage() {
           </li>
         </ul>
 
-        {/* Form */}
-        <form
-          className="mt-12"
-          onSubmit={(e) => {
-            e.preventDefault()
-            alert("Submitted (demo)")
-          }}
-        >
+        <form className="mt-12" onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Left column */}
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
                 First Name
@@ -122,7 +154,6 @@ export default function AssessmentPage() {
               <InputUnderline name="firstName" autoComplete="given-name" required />
             </div>
 
-            {/* Right column (message) */}
             <div className="md:row-span-2">
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
                 Message
@@ -134,7 +165,7 @@ export default function AssessmentPage() {
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
                 Last Name
               </label>
-              <InputUnderline name="lastName" autoComplete="family-name" />
+              <InputUnderline name="lastName" autoComplete="family-name" required />
             </div>
 
             <div>
@@ -144,7 +175,6 @@ export default function AssessmentPage() {
               <InputUnderline name="email" type="email" autoComplete="email" required />
             </div>
 
-            {/* Upload control */}
             <div className="md:col-span-1">
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
                 Upload File
@@ -153,6 +183,7 @@ export default function AssessmentPage() {
                 <input
                   ref={fileInputRef}
                   type="file"
+                  name="attachment"
                   accept="application/pdf"
                   className="sr-only"
                   onChange={onFileChanged}
@@ -174,16 +205,21 @@ export default function AssessmentPage() {
             </div>
           </div>
 
-          {/* Submit */}
-          <div className="mt-12 flex justify-center">
+          <div className="mt-6 min-h-[24px]" aria-live="polite">
+            {success && <p className="text-green-600">{success}</p>}
+            {error && <p className="text-red-600">{error}</p>}
+          </div>
+
+          <div className="mt-8 flex justify-center">
             <Button
               type="submit"
+              disabled={isSubmitting}
               className="w-full sm:w-[300px] md:w-[360px] py-5 text-white"
               style={{ backgroundColor: BRAND_BTN }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = BRAND_BTN_HOVER)}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = BRAND_BTN)}
             >
-              Submit
+              {isSubmitting ? "Submitting..." : "Submit"}
             </Button>
           </div>
         </form>
