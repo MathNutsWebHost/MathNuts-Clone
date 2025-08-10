@@ -21,9 +21,17 @@ export async function POST(req: NextRequest) {
       GMAIL_RECIPIENT_EMAIL: process.env.GMAIL_RECIPIENT_EMAIL,
     }
 
-    if (!env.GMAIL_CLIENT_ID || !env.GMAIL_CLIENT_SECRET || !env.GMAIL_REFRESH_TOKEN) {
+    const missing = Object.entries({
+      GMAIL_CLIENT_ID: env.GMAIL_CLIENT_ID,
+      GMAIL_CLIENT_SECRET: env.GMAIL_CLIENT_SECRET,
+      GMAIL_REFRESH_TOKEN: env.GMAIL_REFRESH_TOKEN,
+    })
+      .filter(([, v]) => !v)
+      .map(([k]) => k)
+
+    if (missing.length > 0) {
       return NextResponse.json(
-        { error: "Email is not configured. Missing Gmail OAuth2 environment variables." },
+        { error: `Email is not configured. Missing environment variables: ${missing.join(", ")}` },
         { status: 500 },
       )
     }
