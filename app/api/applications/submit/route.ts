@@ -5,6 +5,7 @@ type Env = {
   GMAIL_CLIENT_SECRET?: string
   GMAIL_REFRESH_TOKEN?: string
   GMAIL_RECIPIENT_EMAIL?: string
+  GMAIL_SENDER_EMAIL?: string
 }
 
 function base64Url(input: string | Buffer) {
@@ -19,6 +20,7 @@ export async function POST(req: NextRequest) {
       GMAIL_CLIENT_SECRET: process.env.GMAIL_CLIENT_SECRET,
       GMAIL_REFRESH_TOKEN: process.env.GMAIL_REFRESH_TOKEN,
       GMAIL_RECIPIENT_EMAIL: process.env.GMAIL_RECIPIENT_EMAIL,
+      GMAIL_SENDER_EMAIL: process.env.GMAIL_SENDER_EMAIL,
     }
 
     const missing = Object.entries({
@@ -76,9 +78,9 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({
-        client_id: env.GMAIL_CLIENT_ID,
-        client_secret: env.GMAIL_CLIENT_SECRET,
-        refresh_token: env.GMAIL_REFRESH_TOKEN,
+        client_id: env.GMAIL_CLIENT_ID!,
+        client_secret: env.GMAIL_CLIENT_SECRET!,
+        refresh_token: env.GMAIL_REFRESH_TOKEN!,
         grant_type: "refresh_token",
       }),
       cache: "no-store",
@@ -88,25 +90,40 @@ export async function POST(req: NextRequest) {
       const info = await tokenRes.text()
       return NextResponse.json({ error: `Failed to get access token: ${info}` }, { status: 500 })
     }
-    const tokenJson = (await tokenRes.json()) as { access_token: string }
+    const tokenJson = (await tokenRes.json()) as { access_token?: string }
     const accessToken = tokenJson.access_token
     if (!accessToken) {
       return NextResponse.json({ error: "No access token received from Google." }, { status: 500 })
     }
 
-    // Get the authenticated Gmail account address for the From header
-    const profileRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/profile", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      cache: "no-store",
-    })
-    if (!profileRes.ok) {
-      const info = await profileRes.text()
-      return NextResponse.json({ error: `Failed to get Gmail profile: ${info}` }, { status: 500 })
-    }
-    const profile = (await profileRes.json()) as { emailAddress?: string }
-    const accountEmail = profile.emailAddress
+    // Determine sender email without requiring extra scopes
+    let accountEmail = env.GMAIL_SENDER_EMAIL?.trim()
     if (!accountEmail) {
-      return NextResponse.json({ error: "Could not determine sender email from Gmail profile." }, { status: 500 })
+      // Fallback to profile only if sender email is not configured.
+      // Note: This requires an extra scope (e.g., gmail.readonly). If that scope is missing, show a helpful message.
+      const profileRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/profile", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        cache: "no-store",
+      })
+      if (!profileRes.ok) {
+        const info = await profileRes.text()
+        return NextResponse.json(
+          {
+            error:
+              "Failed to determine sender email. Please set GMAIL_SENDER_EMAIL to the Gmail address you authorized, or regenerate your refresh token with an additional scope like gmail.readonly. Details: " +
+              info,
+          },
+          { status: 500 },
+        )
+      }
+      const profile = (await profileRes.json()) as { emailAddress?: string }
+      accountEmail = profile.emailAddress || undefined
+      if (!accountEmail) {
+        return NextResponse.json(
+          { error: "Could not determine sender email from Gmail profile. Set GMAIL_SENDER_EMAIL and redeploy." },
+          { status: 500 },
+        )
+      }
     }
 
     const applicantEmail = fields.email?.trim()
