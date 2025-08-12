@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { inter, oswald } from "@/lib/fonts"
 import { Lead, SectionTitle } from "@/components/section"
@@ -149,14 +151,14 @@ export default function Page() {
           <div className="space-y-2">
             <p className="font-semibold">II. Geometric Transformations</p>
             <Lead>
-              For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid’s Elements;
+              For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid's Elements;
               lengths and angles were not measured but compared. Then, Rene Descartes (1596–1650) introduced the method
               of doing geometry using algebra and numbers – analytic geometry. Later, Felix Klein (1849–1925) introduced
               a more general method (transformations), still involving algebra, that was applicable to other geometries
               as well. The fundamental geometrical notion of congruence has to do with moving (transforming) a figure to
               coincide with another. The course studies geometric transformations that preserve distance in the
               Euclidean plane. These transformations will be seen to describe ALL the symmetry patterns in the plane
-              (and 3‑D which we don’t cover). The course begins with an introduction to Analytic geometry which is also
+              (and 3‑D which we don't cover). The course begins with an introduction to Analytic geometry which is also
               useful for Calculus.
             </Lead>
           </div>
@@ -180,14 +182,14 @@ export default function Page() {
               school students and the public in general is that geometry consists of Euclidean geometry, whereas
               Euclidean geometry is only one of many geometries. However, there are two geometries which are related to
               Euclidean geometry and whose study gives a greater understanding of what Euclidean geometry is really
-              about. There are three geometries called constant curvature geometries where a ‘plane’ of the geometry has
+              about. There are three geometries called constant curvature geometries where a 'plane' of the geometry has
               a curvature that does not change. In Euclidean geometry, the plane is flat in the sense that its curvature
               is zero. In contrast, a hyperbolic plane has negative curvature like that of a horse saddle and an
               elliptic plane has positive curvature like a sphere. While the emphasis in this course is these two
               geometries, we begin with those concepts of Euclidean geometry in which it differs — from the other two
               constant‑curvature geometries — and the study leads us to Elliptic and Hyperbolic geometry. This course is
               ideal for building in the student an appreciation of the idea of proof in mathematics and to improve the
-              student’s ability to construct proofs.
+              student's ability to construct proofs.
             </Lead>
           </div>
         </div>
@@ -216,6 +218,83 @@ export default function Page() {
             </p>
           </div>
         </div>
+
+        {/* Get in Touch Section */}
+        <section className="mt-20 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px] shadow-lg">
+            {/* Left side - Contact Info */}
+            <div className="bg-[#3c4a8c] text-white p-8 lg:p-12 flex flex-col justify-center">
+              <h2 className="text-4xl lg:text-5xl font-bold mb-8" style={{ fontFamily: "Arial, sans-serif" }}>
+                Get in Touch
+              </h2>
+              <p className="text-base leading-relaxed mb-12 max-w-sm">
+                Thank you for your interest in Math Nuts. For general inquiries, please contact us using the Get in
+                Touch form. We look forward to hearing from you!
+              </p>
+              <div className="space-y-3">
+                <p className="text-base">(650) 492-8041</p>
+                <p className="text-base">mathnuts@googlegroups.com</p>
+              </div>
+            </div>
+
+            {/* Right side - Contact Form */}
+            <div className="bg-[#f5f5f5] p-8 lg:p-12 flex flex-col justify-center">
+              <form
+                className="space-y-6"
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  // Handle contact form submission here if needed
+                  alert("Contact form submitted (demo)")
+                }}
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">First Name</label>
+                    <input
+                      type="text"
+                      name="contactFirstName"
+                      className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">Last Name</label>
+                    <input
+                      type="text"
+                      name="contactLastName"
+                      className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] transition-colors"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">Email *</label>
+                  <input
+                    type="email"
+                    name="contactEmail"
+                    required
+                    className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">Message</label>
+                  <textarea
+                    name="contactMessage"
+                    rows={6}
+                    className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] resize-none transition-colors"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full py-4 bg-[#6b7bc4] hover:bg-[#5a6bb3] text-white font-medium transition-colors text-base"
+                >
+                  Submit
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
 
         <div className="mb-20" />
       </main>
