@@ -300,6 +300,9 @@ export default function Page() {
       </main>
 
       <SiteFooter />
+
+      {/* Elfsight AI Chatbot */}
+      <div className="elfsight-app-09c7ac3f-a982-4a1c-b7ef-f4c31124cb99" data-elfsight-app-lazy></div>
     </div>
   )
 }
