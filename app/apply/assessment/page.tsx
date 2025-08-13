@@ -63,6 +63,7 @@ function TextareaUnderline(props: React.TextareaHTMLAttributes<HTMLTextAreaEleme
 }
 
 export default function AssessmentPage() {
+  const formRef = useRef<HTMLFormElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [fileName, setFileName] = useState("No file chosen")
   const [fileObj, setFileObj] = useState<File | null>(null)
@@ -72,6 +73,7 @@ export default function AssessmentPage() {
   const [error, setError] = useState<string | null>(null)
 
   const onChooseFile = () => fileInputRef.current?.click()
+
   const onFileChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0]
     if (!f) return
@@ -90,6 +92,7 @@ export default function AssessmentPage() {
     e.preventDefault()
     setSuccess(null)
     setError(null)
+
     if (!fileObj) {
       setError("Please attach your assessment PDF.")
       return
@@ -111,7 +114,13 @@ export default function AssessmentPage() {
       }
 
       setSuccess("Assessment submitted successfully. Thank you!")
-      e.currentTarget.reset()
+
+      // Reset form safely
+      if (formRef.current) {
+        formRef.current.reset()
+      }
+
+      // Reset file state
       setFileObj(null)
       setFileName("No file chosen")
     } catch (err: any) {
@@ -145,7 +154,7 @@ export default function AssessmentPage() {
           </li>
         </ul>
 
-        <form className="mt-12" onSubmit={onSubmit}>
+        <form ref={formRef} className="mt-12" onSubmit={onSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
@@ -206,7 +215,7 @@ export default function AssessmentPage() {
           </div>
 
           <div className="mt-6 min-h-[24px]" aria-live="polite">
-            {success && <p className="text-green-600">{success}</p>}
+            {success && <p className="text-green-600 font-medium">{success}</p>}
             {error && <p className="text-red-600">{error}</p>}
           </div>
 
