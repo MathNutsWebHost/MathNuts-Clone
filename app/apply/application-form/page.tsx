@@ -1,12 +1,12 @@
 "use client"
 
 import type React from "react"
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { oswald, inter } from "@/lib/fonts"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Plus } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 
 const BRAND_HEADING = "#1b306a"
 const BRAND_LABEL = "#4a5aa6"
@@ -124,29 +124,6 @@ export default function ApplicationFormPage() {
   const [error, setError] = useState<string | null>(null)
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
 
-  // Optional PDF attachment
-  const fileRef = useRef<HTMLInputElement>(null)
-  const [fileName, setFileName] = useState<string>("No file chosen")
-  const [fileObj, setFileObj] = useState<File | null>(null)
-
-  function onPickFile() {
-    fileRef.current?.click()
-  }
-
-  function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const f = e.target.files?.[0]
-    if (!f) return
-    if (!f.name.toLowerCase().endsWith(".pdf")) {
-      alert("Please upload a single PDF file.")
-      e.target.value = ""
-      setFileName("No file chosen")
-      setFileObj(null)
-      return
-    }
-    setFileName(f.name)
-    setFileObj(f)
-  }
-
   function validateForm(formData: FormData): Record<string, string> {
     const errors: Record<string, string> = {}
 
@@ -179,8 +156,8 @@ export default function ApplicationFormPage() {
     // Phone number validation (optional but must be valid if provided)
     const phone = formData.get("phone") as string
     if (phone && phone.trim()) {
-      const phoneRegex = /^[+]?[1-9][\d]{0,15}$|^[$$]?[\d\s\-($$]{10,}$/
-      if (!phoneRegex.test(phone.replace(/[\s\-$$$$]/g, ""))) {
+      const phoneRegex = /^[+]?[1-9][\d]{0,15}$|^[\d\s\-()]{10,}$/
+      if (!phoneRegex.test(phone.replace(/[\s\-()]/g, ""))) {
         errors.phone = "Please enter a valid phone number"
       }
     }
@@ -212,10 +189,6 @@ export default function ApplicationFormPage() {
     setIsSubmitting(true)
 
     try {
-      if (fileObj) {
-        fd.append("attachment", fileObj, fileObj.name)
-      }
-
       const res = await fetch("/api/applications/submit", {
         method: "POST",
         body: fd,
@@ -412,33 +385,6 @@ export default function ApplicationFormPage() {
               Anything else you would like us to know about your child and their interests?
             </label>
             <TextareaUnderline name="extra" placeholder="Write here..." className="min-h-[100px]" />
-          </div>
-
-          {/* Optional attachment (PDF) */}
-          <div className="mt-10">
-            <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-              Optional Attachment (PDF only)
-            </label>
-            <div className="flex items-center gap-4">
-              <input
-                ref={fileRef}
-                type="file"
-                accept="application/pdf"
-                className="sr-only"
-                name="attachment"
-                onChange={onFileChange}
-              />
-              <button
-                type="button"
-                onClick={onPickFile}
-                className="inline-flex items-center gap-2 rounded-md border border-[var(--btn)] px-4 py-2 text-[var(--btn)] hover:bg-[#eef1fb] transition"
-                style={{ ["--btn" as any]: BRAND_BTN }}
-              >
-                <span>Upload File</span>
-                <Plus className="h-4 w-4" />
-              </button>
-            </div>
-            <p className="mt-3 text-[13px] text-slate-500">{fileName}</p>
           </div>
 
           {/* Status messages */}

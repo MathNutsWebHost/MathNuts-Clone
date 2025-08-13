@@ -97,18 +97,6 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 })
     }
 
-    const attachment = form.get("attachment") as File | null
-    if (attachment) {
-      if (attachment.type !== "application/pdf") {
-        return NextResponse.json({ error: "Attachment must be a PDF." }, { status: 400 })
-      }
-      const maxBytes = 10 * 1024 * 1024
-      if (attachment.size > maxBytes) {
-        return NextResponse.json({ error: "Attachment too large (max 10MB)." }, { status: 400 })
-      }
-    }
-
-    // Exchange refresh token for access token
     const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -208,48 +196,21 @@ export async function POST(req: NextRequest) {
       fields.extra || "",
     ].join("\r\n")
 
-    const boundary = "mixed_" + Math.random().toString(36).slice(2)
-    const headers = [
+    const subject = encodeURIComponent(
+      `New Application - ${fields.studentName || "Student"} (${fields.parentName || "Parent"})`,
+    ).replace(/%20/g, " ")
+
+    const emailMsg = [
       `From: ${accountEmail}`,
       `To: ${RECIPIENT}`,
       `Reply-To: ${replyTo}`,
-      `Subject: ${encodeURIComponent(
-        `New Application - ${fields.studentName || "Student"} (${fields.parentName || "Parent"})`,
-      ).replace(/%20/g, " ")}`,
-      "MIME-Version: 1.0",
-      `Content-Type: multipart/mixed; boundary="${boundary}"`,
-      "",
-    ]
-
-    const textPart = [
-      `--${boundary}`,
-      'Content-Type: text/plain; charset="UTF-8"',
-      "MIME-Version: 1.0",
-      "Content-Transfer-Encoding: 7bit",
+      `Subject: ${subject}`,
+      "Content-Type: text/plain; charset=UTF-8",
       "",
       lines,
       "",
-    ]
+    ].join("\r\n")
 
-    let fileSection: string[] = []
-    if (attachment) {
-      const bytes = Buffer.from(await attachment.arrayBuffer())
-      const fileBase64 = bytes.toString("base64")
-      const safeFilename = (attachment.name || "attachment.pdf").replace(/[\r\n"]/g, "")
-      fileSection = [
-        `--${boundary}`,
-        'Content-Type: application/pdf; name="' + safeFilename + '"',
-        "MIME-Version: 1.0",
-        'Content-Disposition: attachment; filename="' + safeFilename + '"',
-        "Content-Transfer-Encoding: base64",
-        "",
-        fileBase64,
-        "",
-      ]
-    }
-
-    const closing = [`--${boundary}--`, ""]
-    const emailMsg = [...headers, ...textPart, ...fileSection, ...closing].join("\r\n")
     const raw = base64Url(emailMsg)
 
     const sendRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
