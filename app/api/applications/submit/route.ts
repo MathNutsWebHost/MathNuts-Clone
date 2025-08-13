@@ -33,7 +33,10 @@ export async function POST(req: NextRequest) {
 
     if (missing.length > 0) {
       return NextResponse.json(
-        { error: `Email is not configured. Missing environment variables: ${missing.join(", ")}` },
+        {
+          error:
+            "We're experiencing technical difficulties with our email system. Please try again later or contact us directly at mathnuts@googlegroups.com.",
+        },
         { status: 500 },
       )
     }
@@ -62,6 +65,38 @@ export async function POST(req: NextRequest) {
       if (typeof v === "string") fields[key] = v
     }
 
+    // Server-side validation for required fields
+    const requiredFields = {
+      parentName: "Parent's Full Name",
+      studentName: "Student's Full Name",
+      email: "Email",
+      recentBooks: "Recent books read in math",
+      reading: "Rate this student's engagement in reading",
+      approachExamples: "State specific examples, showing how your student approaches challenging work",
+      courses: "Math courses completed",
+      contests: "Competitions/Contests taken (and results)",
+      clubs: "Math circle/clubs/events attended",
+    }
+
+    const missingFields = []
+    for (const [field, label] of Object.entries(requiredFields)) {
+      if (!fields[field] || fields[field].trim() === "") {
+        missingFields.push(label)
+      }
+    }
+
+    if (missingFields.length > 0) {
+      return NextResponse.json(
+        { error: `Please fill in the following required fields: ${missingFields.join(", ")}` },
+        { status: 400 },
+      )
+    }
+
+    // Email validation
+    if (!fields.email.includes("@")) {
+      return NextResponse.json({ error: "Please provide a valid email address." }, { status: 400 })
+    }
+
     const attachment = form.get("attachment") as File | null
     if (attachment) {
       if (attachment.type !== "application/pdf") {
@@ -88,30 +123,40 @@ export async function POST(req: NextRequest) {
 
     if (!tokenRes.ok) {
       const info = await tokenRes.text()
-      return NextResponse.json({ error: `Failed to get access token: ${info}` }, { status: 500 })
+      console.error("Token exchange failed:", info)
+      return NextResponse.json(
+        {
+          error:
+            "We're experiencing technical difficulties. Please try again later or contact us directly at mathnuts@googlegroups.com.",
+        },
+        { status: 500 },
+      )
     }
     const tokenJson = (await tokenRes.json()) as { access_token?: string }
     const accessToken = tokenJson.access_token
     if (!accessToken) {
-      return NextResponse.json({ error: "No access token received from Google." }, { status: 500 })
+      return NextResponse.json(
+        {
+          error:
+            "We're experiencing technical difficulties. Please try again later or contact us directly at mathnuts@googlegroups.com.",
+        },
+        { status: 500 },
+      )
     }
 
     // Determine sender email without requiring extra scopes
     let accountEmail = env.GMAIL_SENDER_EMAIL?.trim()
     if (!accountEmail) {
       // Fallback to profile only if sender email is not configured.
-      // Note: This requires an extra scope (e.g., gmail.readonly). If that scope is missing, show a helpful message.
       const profileRes = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/profile", {
         headers: { Authorization: `Bearer ${accessToken}` },
         cache: "no-store",
       })
       if (!profileRes.ok) {
-        const info = await profileRes.text()
         return NextResponse.json(
           {
             error:
-              "Failed to determine sender email. Please set GMAIL_SENDER_EMAIL to the Gmail address you authorized, or regenerate your refresh token with an additional scope like gmail.readonly. Details: " +
-              info,
+              "We're experiencing technical difficulties. Please try again later or contact us directly at mathnuts@googlegroups.com.",
           },
           { status: 500 },
         )
@@ -120,7 +165,10 @@ export async function POST(req: NextRequest) {
       accountEmail = profile.emailAddress || undefined
       if (!accountEmail) {
         return NextResponse.json(
-          { error: "Could not determine sender email from Gmail profile. Set GMAIL_SENDER_EMAIL and redeploy." },
+          {
+            error:
+              "We're experiencing technical difficulties. Please try again later or contact us directly at mathnuts@googlegroups.com.",
+          },
           { status: 500 },
         )
       }
@@ -215,11 +263,25 @@ export async function POST(req: NextRequest) {
 
     if (!sendRes.ok) {
       const info = await sendRes.text()
-      return NextResponse.json({ error: `Failed to send email: ${info}` }, { status: 500 })
+      console.error("Email send failed:", info)
+      return NextResponse.json(
+        {
+          error:
+            "We're experiencing technical difficulties. Please try again later or contact us directly at mathnuts@googlegroups.com.",
+        },
+        { status: 500 },
+      )
     }
 
     return NextResponse.json({ ok: true })
   } catch (err: any) {
-    return NextResponse.json({ error: err?.message || "Unexpected error" }, { status: 500 })
+    console.error("Application submission error:", err)
+    return NextResponse.json(
+      {
+        error:
+          "We're experiencing technical difficulties. Please try again later or contact us directly at mathnuts@googlegroups.com.",
+      },
+      { status: 500 },
+    )
   }
 }

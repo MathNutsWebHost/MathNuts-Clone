@@ -40,11 +40,13 @@ function SelectUnderline({
   placeholder = "Select",
   value,
   onChange,
+  required = false,
 }: {
   options: string[]
   placeholder?: string
   value?: string
   onChange?: (val: string) => void
+  required?: boolean
 }) {
   const [open, setOpen] = useState(false)
   return (
@@ -52,7 +54,10 @@ function SelectUnderline({
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="w-full bg-[#f7f8fc] px-3 py-2 text-left border-0 border-b border-[var(--underline)] rounded-none focus:outline-none focus:ring-0 focus:border-[var(--heading)]"
+        className={[
+          "w-full bg-[#f7f8fc] px-3 py-2 text-left border-0 border-b border-[var(--underline)] rounded-none focus:outline-none focus:ring-0 focus:border-[var(--heading)]",
+          !value && required ? "border-red-500" : "",
+        ].join(" ")}
         style={
           {
             "--underline": UNDERLINE,
@@ -117,6 +122,7 @@ export default function ApplicationFormPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [success, setSuccess] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({})
 
   // Optional PDF attachment
   const fileRef = useRef<HTMLInputElement>(null)
@@ -141,20 +147,62 @@ export default function ApplicationFormPage() {
     setFileObj(f)
   }
 
+  function validateForm(formData: FormData): Record<string, string> {
+    const errors: Record<string, string> = {}
+
+    // Required fields validation
+    const requiredFields = {
+      parentName: "Parent's Full Name",
+      studentName: "Student's Full Name",
+      email: "Email",
+      recentBooks: "Recent books read in math",
+      reading: "Rate this student's engagement in reading",
+      approachExamples: "State specific examples, showing how your student approaches challenging work",
+      courses: "Math courses completed",
+      contests: "Competitions/Contests taken (and results)",
+      clubs: "Math circle/clubs/events attended",
+    }
+
+    for (const [field, label] of Object.entries(requiredFields)) {
+      const value = field === "reading" ? reading : formData.get(field)
+      if (!value || (typeof value === "string" && value.trim() === "")) {
+        errors[field] = `${label} is required`
+      }
+    }
+
+    // Email validation
+    const email = formData.get("email") as string
+    if (email && !email.includes("@")) {
+      errors.email = "Please enter a valid email address"
+    }
+
+    return errors
+  }
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setSuccess(null)
     setError(null)
+    setValidationErrors({})
+
+    const formEl = e.currentTarget
+    const fd = new FormData(formEl)
+
+    // Keep select values in sync with form data
+    fd.set("schooling", schooling)
+    fd.set("reading", reading)
+
+    // Validate form
+    const errors = validateForm(fd)
+    if (Object.keys(errors).length > 0) {
+      setValidationErrors(errors)
+      setError("Please fill in all required fields correctly.")
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
-      const formEl = e.currentTarget
-      const fd = new FormData(formEl)
-
-      // Keep select values in sync with form data
-      fd.set("schooling", schooling)
-      fd.set("reading", reading)
-
       if (fileObj) {
         fd.append("attachment", fileObj, fileObj.name)
       }
@@ -170,17 +218,43 @@ export default function ApplicationFormPage() {
       }
 
       setSuccess("Application submitted successfully. Thank you!")
-      // Optionally reset form
+      // Reset form
       formEl.reset()
       setSchooling("")
       setReading("")
       setFileObj(null)
       setFileName("No file chosen")
+      setValidationErrors({})
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  // If form was successfully submitted, show centered success message
+  if (success) {
+    return (
+      <div className={inter.className}>
+        <SiteHeader />
+        <main className="mx-auto max-w-5xl px-5 md:px-6 py-12 md:py-16">
+          <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
+            <div className="bg-green-50 border border-green-200 rounded-lg p-8 max-w-md">
+              <div className="text-green-600 text-6xl mb-4">✓</div>
+              <h2 className={`${oswald.className} text-2xl font-bold text-green-800 mb-4`}>Success!</h2>
+              <p className="text-green-700 text-lg">{success}</p>
+              <button
+                onClick={() => setSuccess(null)}
+                className="mt-6 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+              >
+                Submit Another Application
+              </button>
+            </div>
+          </div>
+        </main>
+        <SiteFooter />
+      </div>
+    )
   }
 
   return (
@@ -195,22 +269,38 @@ export default function ApplicationFormPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Parent&apos;s Full Name <span className="text-[13px]">*</span>
+                Parent&apos;s Full Name <span className="text-red-500">*</span>
               </label>
-              <InputUnderline name="parentName" required placeholder="Enter parent’s full name" />
+              <InputUnderline
+                name="parentName"
+                required
+                placeholder="Enter parent's full name"
+                className={validationErrors.parentName ? "border-red-500" : ""}
+              />
+              {validationErrors.parentName && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.parentName}</p>
+              )}
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Student&apos;s Full Name <span className="text-[13px]">*</span>
+                Student&apos;s Full Name <span className="text-red-500">*</span>
               </label>
-              <InputUnderline name="studentName" required placeholder="Enter student’s full name" />
+              <InputUnderline
+                name="studentName"
+                required
+                placeholder="Enter student's full name"
+                className={validationErrors.studentName ? "border-red-500" : ""}
+              />
+              {validationErrors.studentName && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.studentName}</p>
+              )}
             </div>
 
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
                 Student&apos;s Age
               </label>
-              <InputUnderline name="age" type="number" min={1} placeholder="Enter student’s age" />
+              <InputUnderline name="age" type="number" min={1} placeholder="Enter student's age" />
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
@@ -227,9 +317,16 @@ export default function ApplicationFormPage() {
 
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Email <span className="text-[13px]">*</span>
+                Email <span className="text-red-500">*</span>
               </label>
-              <InputUnderline name="email" type="email" required placeholder="email@example.com" />
+              <InputUnderline
+                name="email"
+                type="email"
+                required
+                placeholder="email@example.com"
+                className={validationErrors.email ? "border-red-500" : ""}
+              />
+              {validationErrors.email && <p className="text-red-500 text-xs mt-1">{validationErrors.email}</p>}
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
@@ -240,21 +337,31 @@ export default function ApplicationFormPage() {
 
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Recent books read in math*
+                Recent books read in math <span className="text-red-500">*</span>
               </label>
-              <InputUnderline name="recentBooks" required placeholder="List recent books" />
+              <InputUnderline
+                name="recentBooks"
+                required
+                placeholder="List recent books"
+                className={validationErrors.recentBooks ? "border-red-500" : ""}
+              />
+              {validationErrors.recentBooks && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.recentBooks}</p>
+              )}
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Rate this student&apos;s engagement in reading*
+                Rate this student&apos;s engagement in reading <span className="text-red-500">*</span>
               </label>
               <SelectUnderline
                 options={["Low", "Medium", "High", "Very High"]}
                 value={reading}
                 onChange={setReading}
                 placeholder="Select one"
+                required
               />
               <input type="hidden" name="reading" value={reading} />
+              {validationErrors.reading && <p className="text-red-500 text-xs mt-1">{validationErrors.reading}</p>}
             </div>
           </div>
 
@@ -262,28 +369,55 @@ export default function ApplicationFormPage() {
           <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-10">
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                State specific examples, showing how your student approaches challenging work *
+                State specific examples, showing how your student approaches challenging work{" "}
+                <span className="text-red-500">*</span>
               </label>
-              <TextareaUnderline name="approachExamples" required placeholder="Write here..." />
+              <TextareaUnderline
+                name="approachExamples"
+                required
+                placeholder="Write here..."
+                className={validationErrors.approachExamples ? "border-red-500" : ""}
+              />
+              {validationErrors.approachExamples && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.approachExamples}</p>
+              )}
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Math courses completed *
+                Math courses completed <span className="text-red-500">*</span>
               </label>
-              <TextareaUnderline name="courses" required placeholder="Write here..." />
+              <TextareaUnderline
+                name="courses"
+                required
+                placeholder="Write here..."
+                className={validationErrors.courses ? "border-red-500" : ""}
+              />
+              {validationErrors.courses && <p className="text-red-500 text-xs mt-1">{validationErrors.courses}</p>}
             </div>
 
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Competitions/Contests taken (and results) *
+                Competitions/Contests taken (and results) <span className="text-red-500">*</span>
               </label>
-              <TextareaUnderline name="contests" required placeholder="Write here..." />
+              <TextareaUnderline
+                name="contests"
+                required
+                placeholder="Write here..."
+                className={validationErrors.contests ? "border-red-500" : ""}
+              />
+              {validationErrors.contests && <p className="text-red-500 text-xs mt-1">{validationErrors.contests}</p>}
             </div>
             <div>
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
-                Math circle/clubs/events attended *
+                Math circle/clubs/events attended <span className="text-red-500">*</span>
               </label>
-              <TextareaUnderline name="clubs" required placeholder="Write here..." />
+              <TextareaUnderline
+                name="clubs"
+                required
+                placeholder="Write here..."
+                className={validationErrors.clubs ? "border-red-500" : ""}
+              />
+              {validationErrors.clubs && <p className="text-red-500 text-xs mt-1">{validationErrors.clubs}</p>}
             </div>
           </div>
 
@@ -324,7 +458,6 @@ export default function ApplicationFormPage() {
 
           {/* Status messages */}
           <div className="mt-6 min-h-[24px]" aria-live="polite">
-            {success && <p className="text-green-600">{success}</p>}
             {error && <p className="text-red-600">{error}</p>}
           </div>
 
