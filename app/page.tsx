@@ -162,9 +162,7 @@ export default function Page() {
         {/* Our History */}
         <SectionTitle>OUR HISTORY</SectionTitle>
         <Lead className="mt-4">
-          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp. Dr. John
-          Berman, former IMO gold medallist, and independent mathematician with a passion for interacting with future
-          mathematicians, joined the program in mid-2022.
+          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp.
         </Lead>
 
         {/* Upcoming Courses */}
@@ -178,10 +176,8 @@ export default function Page() {
           <div className="space-y-2">
             <p className="font-semibold">I. Set Theory and Beyond.</p>
             <Lead>
-              Students will go beyond basic ideas of countable and uncountable sets to study topics such as the
-              Cantor-Schroeder-Bernstein Theorem, consequences of the axiom of choice, and others. These topics prepare
-              students to study structures that appear throughout mathematics such as graphs and posets, groups and
-              rings, topological and metric spaces, etc.
+
+              This course, Axiomatic Set Theory, explores the foundational principles of set theory using an axiomatic approach, focusing on the concepts of well-ordered sets and the hierarchy of infinities. Students will learn the wonderful constructions of the natural numbers, rationals and real numbers out of the empty set and the axioms, understand the properties of infinite sets, and delve into the fascinating realm of transfinite numbers. 
             </Lead>
           </div>
           <div className="space-y-2">
