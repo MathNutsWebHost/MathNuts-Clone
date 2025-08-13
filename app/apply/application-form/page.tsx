@@ -176,6 +176,15 @@ export default function ApplicationFormPage() {
       errors.email = "Please enter a valid email address"
     }
 
+    // Phone number validation (optional but must be valid if provided)
+    const phone = formData.get("phone") as string
+    if (phone && phone.trim()) {
+      const phoneRegex = /^[+]?[1-9][\d]{0,15}$|^[$$]?[\d\s\-($$]{10,}$/
+      if (!phoneRegex.test(phone.replace(/[\s\-$$$$]/g, ""))) {
+        errors.phone = "Please enter a valid phone number"
+      }
+    }
+
     return errors
   }
 
@@ -218,43 +227,13 @@ export default function ApplicationFormPage() {
       }
 
       setSuccess("Application submitted successfully. Thank you!")
-      // Reset form
-      formEl.reset()
-      setSchooling("")
-      setReading("")
-      setFileObj(null)
-      setFileName("No file chosen")
+      // Don't reset the form, just clear validation errors
       setValidationErrors({})
     } catch (err: any) {
       setError(err.message || "Something went wrong. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  // If form was successfully submitted, show centered success message
-  if (success) {
-    return (
-      <div className={inter.className}>
-        <SiteHeader />
-        <main className="mx-auto max-w-5xl px-5 md:px-6 py-12 md:py-16">
-          <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-8 max-w-md">
-              <div className="text-green-600 text-6xl mb-4">✓</div>
-              <h2 className={`${oswald.className} text-2xl font-bold text-green-800 mb-4`}>Success!</h2>
-              <p className="text-green-700 text-lg">{success}</p>
-              <button
-                onClick={() => setSuccess(null)}
-                className="mt-6 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
-              >
-                Submit Another Application
-              </button>
-            </div>
-          </div>
-        </main>
-        <SiteFooter />
-      </div>
-    )
   }
 
   return (
@@ -332,7 +311,13 @@ export default function ApplicationFormPage() {
               <label className="block text-[13px] mb-2" style={{ color: BRAND_LABEL }}>
                 Phone
               </label>
-              <InputUnderline name="phone" type="tel" placeholder="(000) 000-0000" />
+              <InputUnderline
+                name="phone"
+                type="tel"
+                placeholder="(000) 000-0000"
+                className={validationErrors.phone ? "border-red-500" : ""}
+              />
+              {validationErrors.phone && <p className="text-red-500 text-xs mt-1">{validationErrors.phone}</p>}
             </div>
 
             <div>
@@ -458,6 +443,7 @@ export default function ApplicationFormPage() {
 
           {/* Status messages */}
           <div className="mt-6 min-h-[24px]" aria-live="polite">
+            {success && <p className="text-green-600 text-center font-medium">{success}</p>}
             {error && <p className="text-red-600">{error}</p>}
           </div>
 
