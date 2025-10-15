@@ -18,7 +18,7 @@ export default function ApplyPage() {
         <div className="mt-10 space-y-5 text-slate-700 leading-8">
           <p className="text-left">
             If you are enthusiastic about joining our program, please complete the application form. The application
-            deadline for the next batch is December 15th, 2024, and the class start date is January 3rd week. If you
+            deadline for the next batch is December 15th, 2025, and the class start date is January 4th, 2026. If you
             require further details or have any inquiries, please feel free to contact us at{" "}
             <a
               href="mailto:mathnuts@googlegroups.com"

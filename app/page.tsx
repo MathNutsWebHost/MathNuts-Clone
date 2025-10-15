@@ -145,17 +145,33 @@ export default function Page() {
             If you are enthusiastic about joining our program, we kindly request you to complete the application form.
             All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
             to applicants who pass the first screening of the submitted application. The application deadline for the
-            next batch is December 15th, 2024 and the class start date is January third week.
+            next batch is December 15th, 2025 and the class start date is January first week.
           </Lead>
           <Lead>
             Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
-            2nd) and the Spring cycle (November 15th to December 15th). Fall classes commence in the third week of
-            August, while spring classes begin in the third week of January. We look forward to receiving your
+            2nd) and the Spring cycle (October 15th to December 15th). 
+            Fall classes commence in September, while spring classes begin in the first week of January. We look forward to receiving your
             applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
             <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
               mathnuts@googlegroups.com
             </a>
             .
+          </Lead>
+          <Lead>
+            <span className="font-bold">Applications open now for Spring 2026 session (January 4th to May 17th 2026).
+            </span>
+          </Lead>
+          <Lead>
+            <span className="font-bold">
+            Application deadline: December 15th 2025.
+            </span>
+          </Lead>
+          <Lead>
+            <span className="font-bold">
+            <a href="https://www.mathnuts.org/apply" className="underline">
+            Apply Now
+            </a>
+            </span>
           </Lead>
         </div>
 
@@ -174,14 +190,20 @@ export default function Page() {
             learning environment conducive to young minds.&nbsp;
           </Lead>
           <div className="space-y-2">
-            <p className="font-semibold">I. Set Theory and Beyond.</p>
+            <p className="font-semibold flex justify-between">
+              <span>I. Set Theory and Beyond</span>
+              <span>Fall (September - December)</span>
+            </p>
             <Lead>
 
               This course, Axiomatic Set Theory, explores the foundational principles of set theory using an axiomatic approach, focusing on the concepts of well-ordered sets and the hierarchy of infinities. Students will learn the wonderful constructions of the natural numbers, rationals and real numbers out of the empty set and the axioms, understand the properties of infinite sets, and delve into the fascinating realm of transfinite numbers. 
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold">II. Geometric Transformations</p>
+            <p className="font-semibold flex justify-between">
+              <span>II. Geometric Transformations</span>
+              <span>Spring (January - May)</span>
+            </p>
             <Lead>
               For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid's Elements;
               lengths and angles were not measured but compared. Then, Rene Descartes (1596–1650) introduced the method
@@ -195,7 +217,10 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold">III. Affine and Projective geometries</p>
+            <p className="font-semibold flex justify-between">
+              <span>III. Affine and Projective geometries</span>
+              <span>Fall (September - December)</span>
+            </p>
             <Lead>
               The goal of this course is to develop a clear grasp of the various geometries and their relationships to
               one another. For this reason, we study projective geometry for it entails a unified view and closely
@@ -207,7 +232,10 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold">IV. Non‑Euclidean geometry</p>
+            <p className="font-semibold flex justify-between">
+              <span>IV. Non‑Euclidean geometry</span>
+              <span>Spring (January - May)</span>
+            </p>
             <Lead>
               Although Non‑Euclidean geometry means geometries other than Euclidean geometry, the reference in
               mathematics is to two particular geometries – Elliptic geometry and Hyperbolic geometry. The impression of
@@ -232,7 +260,7 @@ export default function Page() {
           {/* Use a remote <img> tag to avoid remote image config */}
           <div className="w-[200px] h-[199px] rounded-full overflow-hidden border shadow">
             <img
-              src="https://static.wixstatic.com/media/3c18fe_783aea98d40e4b8db8ba3bb92467a294~mv2.jpg/v1/crop/x_2,y_0,w_471,h_471/fill/w_200,h_199,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/George%20Thomas.jpg"
+              src="/images/design-mode/George%20Thomas.jpg"
               alt="George R. Thomas portrait"
               width={200}
               height={199}
@@ -242,8 +270,7 @@ export default function Page() {
           <div>
             <p className="text-[18px] text-center sm:text-left leading-[1.75] text-[#162B6F]">
               Dr.&nbsp; Thomas is an independent mathematician with long experience teaching and mentoring in summer
-              programs for students showing high promise in mathematics. He founded Canada/USA Mathcamp, MathPath, and
-              Epsilon Camp.
+              programs for students showing high promise in mathematics. He has founded summer programs for students showing high promise in mathematics.
             </p>
             <p className={`${oswald.className} text-[#162B6F] text-[18px] text-center sm:text-left mt-2`}>
               George R. Thomas
