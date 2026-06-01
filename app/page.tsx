@@ -265,8 +265,10 @@ export default function Page() {
             .
           </Lead>
           <Lead>
-            For Fall 2026, applications are being accepted only for Geometric Transformations and Complex Analysis,
-            Part I.
+            <span className="font-bold">
+              For Fall 2026, applications are being accepted only for Geometric Transformations and Complex Analysis,
+              Part I.
+            </span>
           </Lead>
           <Lead>
             <span className="font-bold">
