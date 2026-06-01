@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { cookies } from "next/headers"
+import { getGoogleRedirectUri } from "@/lib/google-oauth"
 
 export async function GET(req: NextRequest) {
   const clientId = process.env.GMAIL_CLIENT_ID
@@ -20,8 +21,8 @@ export async function GET(req: NextRequest) {
   // Clear the state cookie
   cookies().set("google_oauth_state", "", { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 0 })
 
-  const { origin } = url
-  const redirectUri = `${origin}/api/google/oauth2/callback`
+  const redirectUri = getGoogleRedirectUri(req)
+  const origin = redirectUri.replace(/\/api\/google\/oauth2\/callback$/, "")
 
   // Exchange code for tokens
   const tokenRes = await fetch("https://oauth2.googleapis.com/token", {

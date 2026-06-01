@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server"
+import { getGoogleRedirectUri } from "@/lib/google-oauth"
 
 export async function GET(req: NextRequest) {
   const clientId = process.env.GMAIL_CLIENT_ID
@@ -6,8 +7,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: "Missing GMAIL_CLIENT_ID" }, { status: 500 })
   }
 
-  const { origin } = new URL(req.url)
-  const redirectUri = `${origin}/api/google/oauth2/callback`
+  const redirectUri = getGoogleRedirectUri(req)
 
   // Generate state and attach it as a secure cookie on the redirect response
   const state = crypto.randomUUID()
