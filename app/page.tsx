@@ -184,6 +184,14 @@ export default function Page() {
             to apply. With fewer than 10 students per class, the program ensures personalized attention, fostering a
             learning environment conducive to young minds.&nbsp;
           </Lead>
+          <div className="text-center">
+            <p className="text-[22px] font-semibold text-[#162B6F]">Courses offered in Fall 2026</p>
+            <p className="mt-2 text-[15px] leading-[1.875] text-slate-800">
+              1. Geometric Transformations
+              <br />
+              2. Complex Analysis
+            </p>
+          </div>
           <div className="space-y-2">
             <p className="font-semibold">
               <span>I. Set Theory and Beyond</span>
