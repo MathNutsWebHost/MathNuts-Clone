@@ -3,6 +3,7 @@
 import type React from "react"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { inter, oswald } from "@/lib/fonts"
 import { Lead, SectionTitle } from "@/components/section"
@@ -277,7 +278,7 @@ export default function Page() {
               size="lg"
               className="h-12 rounded-full px-10 text-base font-semibold text-white shadow-md transition-transform hover:scale-[1.03] bg-[#162B6F] hover:bg-[#0f1f52]"
             >
-              <a href="https://www.mathnuts.org/apply">Apply Now</a>
+              <Link href="/apply">Apply Now</Link>
             </Button>
           </div>
         </div>
