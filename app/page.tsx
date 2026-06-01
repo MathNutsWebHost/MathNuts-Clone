@@ -106,7 +106,7 @@ export default function Page() {
         {/* Homework */}
         <SectionTitle>HOMEWORK</SectionTitle>
         <Lead className="mt-4">
-          To reinforce the lecture discussions, students are assigned weekly homework that takes approximately 1- 2
+          To reinforce the lecture discussions, students are assigned weekly homework that takes approximately 1 - 2
           hours of their time. These assignments aim to enhance their ability to write proofs and verify understanding
           and appreciation of the subject matter.
         </Lead>
