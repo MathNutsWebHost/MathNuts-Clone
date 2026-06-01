@@ -248,6 +248,27 @@ export default function Page() {
               student's ability to construct proofs.
             </Lead>
           </div>
+          <div className="space-y-2">
+            <p className="font-semibold">
+              <span>V. Complex Analysis, Part I</span>
+            </p>
+            <Lead>
+              This course introduces the foundational ideas of complex analysis, beginning with the metric‑space
+              language needed to discuss convergence, continuity, openness, closedness, compactness, and
+              connectedness. These concepts provide the setting in which functions of a complex variable are studied
+              rigorously. The course then turns to the geometry of curves in the complex plane. Students study
+              parametrized curves, smooth and piecewise smooth curves, tangents, lengths, and angles. This prepares the
+              ground for later topics such as contour integration and Cauchy's theorem. The next part of the course
+              develops the elementary transcendental functions of complex analysis. The complex exponential function is
+              introduced and studied in detail, followed by the complex trigonometric functions and their inverses.
+              Special attention is given to the new phenomena that arise in the complex plane, including periodicity,
+              multivalued inverses, and the role of branches. The course concludes with the differentiability of complex
+              functions. Students learn the definition of complex differentiability, compare it with differentiability
+              of real functions, and study the Cauchy–Riemann equations. The central theme is that complex
+              differentiability is far more rigid than real differentiability and leads naturally to the concept of
+              holomorphic functions.
+            </Lead>
+          </div>
         </div>
 
         {/* Founder */}
