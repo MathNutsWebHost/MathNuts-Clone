@@ -190,9 +190,8 @@ export default function Page() {
             learning environment conducive to young minds.&nbsp;
           </Lead>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>I. Set Theory and Beyond</span>
-              <span>Fall (September - December)</span>
             </p>
             <Lead>
 
@@ -200,9 +199,8 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>II. Geometric Transformations</span>
-              <span>Spring (January - May)</span>
             </p>
             <Lead>
               For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid's Elements;
@@ -217,9 +215,8 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>III. Affine and Projective geometries</span>
-              <span>Fall (September - December)</span>
             </p>
             <Lead>
               The goal of this course is to develop a clear grasp of the various geometries and their relationships to
@@ -232,9 +229,8 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>IV. Non‑Euclidean geometry</span>
-              <span>Spring (January - May)</span>
             </p>
             <Lead>
               Although Non‑Euclidean geometry means geometries other than Euclidean geometry, the reference in
