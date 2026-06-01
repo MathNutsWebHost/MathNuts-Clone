@@ -2,7 +2,6 @@ import type React from "react"
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
-import Script from "next/script"
 import "./globals.css"
 
 export const metadata: Metadata = {
@@ -29,8 +28,6 @@ html {
       </head>
       <body>
         {children}
-        {/* Elfsight AI Chatbot Script */}
-        <Script src="https://static.elfsight.com/platform/platform.js" strategy="lazyOnload" />
       </body>
     </html>
   )
