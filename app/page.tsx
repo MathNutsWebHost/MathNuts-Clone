@@ -138,46 +138,8 @@ export default function Page() {
           <Lead>Note that mathematics progresses from answers to questions!</Lead>
         </div>
 
-        {/* Application Process */}
-        <SectionTitle>APPLICATION PROCESS</SectionTitle>
-        <div className="mt-4 space-y-4">
-          <Lead>
-            If you are enthusiastic about joining our program, we kindly request you to complete the application form.
-            All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
-            to applicants who pass the first screening of the submitted application. The application deadline for the
-            next batch is December 15th, 2025 and the class start date is January first week.
-          </Lead>
-          <Lead>
-            Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
-            2nd) and the Spring cycle (October 15th to December 15th). 
-            Fall classes commence in September, while spring classes begin in the first week of January. We look forward to receiving your
-            applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
-            <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
-              mathnuts@googlegroups.com
-            </a>
-            .
-          </Lead>
-          <Lead>
-            <span className="font-bold">Applications open now for Fall 2026 session (April 15th to June 15th 2026).
-            </span>
-          </Lead>
-          <Lead>
-            <span className="font-bold">
-            <a href="https://www.mathnuts.org/apply" className="underline">
-            Apply Now
-            </a>
-            </span>
-          </Lead>
-        </div>
-
-        {/* Our History */}
-        <SectionTitle>OUR HISTORY</SectionTitle>
-        <Lead className="mt-4">
-          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp.
-        </Lead>
-
-        {/* Upcoming Courses */}
-        <SectionTitle>UPCOMING COURSES</SectionTitle>
+        {/* Courses */}
+        <SectionTitle>COURSES</SectionTitle>
         <div className="mt-4 space-y-6">
           <Lead>
             There are two strands, one for students aged 10/11, and one for age 12/13. Students worldwide are eligible
@@ -275,6 +237,44 @@ export default function Page() {
             </Lead>
           </div>
         </div>
+
+        {/* Application Process */}
+        <SectionTitle>APPLICATION PROCESS</SectionTitle>
+        <div className="mt-4 space-y-4">
+          <Lead>
+            If you are enthusiastic about joining our program, we kindly request you to complete the application form.
+            All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
+            to applicants who pass the first screening of the submitted application. The application deadline for the
+            next batch is December 15th, 2025 and the class start date is January first week.
+          </Lead>
+          <Lead>
+            Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
+            2nd) and the Spring cycle (October 15th to December 15th). 
+            Fall classes commence in September, while spring classes begin in the first week of January. We look forward to receiving your
+            applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
+            <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
+              mathnuts@googlegroups.com
+            </a>
+            .
+          </Lead>
+          <Lead>
+            <span className="font-bold">Applications open now for Fall 2026 session (April 15th to June 15th 2026).
+            </span>
+          </Lead>
+          <Lead>
+            <span className="font-bold">
+            <a href="https://www.mathnuts.org/apply" className="underline">
+            Apply Now
+            </a>
+            </span>
+          </Lead>
+        </div>
+
+        {/* Our History */}
+        <SectionTitle>OUR HISTORY</SectionTitle>
+        <Lead className="mt-4">
+          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp.
+        </Lead>
 
         {/* Founder */}
         <SectionTitle className="mt-16">Founder</SectionTitle>
