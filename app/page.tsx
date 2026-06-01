@@ -242,22 +242,27 @@ export default function Page() {
           <Lead>
             If you are enthusiastic about joining our program, we kindly request you to complete the application form.
             All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
-            to applicants who pass the first screening of the submitted application. The application deadline for the
-            next batch is December 15th, 2025 and the class start date is January first week.
+            to applicants who pass the first screening of the submitted application.
           </Lead>
           <Lead>
-            Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
-            15th) and the Spring cycle (October 15th to December 15th). 
-            Fall classes commence in September, while spring classes begin in the first week of January. We look forward to receiving your
-            applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
+            Our admissions process takes place twice a year, with application cycles for both Fall and Spring
+            enrollment.
+          </Lead>
+          <Lead>
+            Fall Session: Classes begin in September.
+            <br />
+            Spring Session: Classes begin in the first week of January.
+          </Lead>
+          <Lead>
+            <span className="font-bold">Applications for the Fall 2026 session are now open.</span> The application
+            deadline for the Fall 2026 cycle is <span className="font-bold">July 15, 2026</span>.
+          </Lead>
+          <Lead>
+            We look forward to receiving your application. For additional information or questions, please contact us at{" "}
             <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
               mathnuts@googlegroups.com
             </a>
             .
-          </Lead>
-          <Lead>
-            <span className="font-bold">Applications open now for Fall 2026 session (April 15th to June 15th 2026).
-            </span>
           </Lead>
           <Lead>
             <span className="font-bold">
