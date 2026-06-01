@@ -265,6 +265,10 @@ export default function Page() {
             .
           </Lead>
           <Lead>
+            For Fall 2026, applications are being accepted only for Geometric Transformations and Complex Analysis,
+            Part I.
+          </Lead>
+          <Lead>
             <span className="font-bold">
               <a href="https://www.mathnuts.org/apply" className="underline">
                 Apply Now
