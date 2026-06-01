@@ -275,7 +275,7 @@ export default function Page() {
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-full px-10 text-base font-semibold shadow-md transition-transform hover:scale-[1.03]"
+              className="h-12 rounded-full px-10 text-base font-semibold text-white shadow-md transition-transform hover:scale-[1.03] bg-[#162B6F] hover:bg-[#0f1f52]"
             >
               <a href="https://www.mathnuts.org/apply">Apply Now</a>
             </Button>
