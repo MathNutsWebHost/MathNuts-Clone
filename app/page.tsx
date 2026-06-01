@@ -247,7 +247,7 @@ export default function Page() {
           </Lead>
           <Lead>
             Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
-            2nd) and the Spring cycle (October 15th to December 15th). 
+            15th) and the Spring cycle (October 15th to December 15th). 
             Fall classes commence in September, while spring classes begin in the first week of January. We look forward to receiving your
             applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
             <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
