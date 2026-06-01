@@ -150,9 +150,9 @@ export default function Page() {
           <div className="font-bold text-slate-800">
             <p className="text-[18px] leading-[1.5]">Courses offered in Fall 2026 are:</p>
             <p className="mt-2 text-[16px] leading-[1.875]">
-              {"✅ "}Geometric Transformations
+              {"✅ "}Geometric Transformations (Ages 10–11)
               <br />
-              {"✅ "}Complex Analysis, Part I
+              {"✅ "}Complex Analysis, Part I (Ages 12–13)
             </p>
           </div>
           <div className="space-y-2">
