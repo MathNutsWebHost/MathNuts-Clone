@@ -158,12 +158,7 @@ export default function Page() {
             .
           </Lead>
           <Lead>
-            <span className="font-bold">Applications open now for Spring 2026 session (January 4th to May 17th 2026).
-            </span>
-          </Lead>
-          <Lead>
-            <span className="font-bold">
-            Application deadline: December 15th 2025.
+            <span className="font-bold">Applications open now for Fall 2026 session (April 15th to June 15th 2026).
             </span>
           </Lead>
           <Lead>
