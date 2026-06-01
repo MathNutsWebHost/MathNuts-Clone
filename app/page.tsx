@@ -271,7 +271,7 @@ export default function Page() {
             </span>
           </Lead>
           <Lead>
-            <span className="font-bold">
+            <span className="text-2xl font-bold">
               <a href="https://www.mathnuts.org/apply" className="underline">
                 Apply Now
               </a>
