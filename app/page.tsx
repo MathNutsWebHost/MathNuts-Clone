@@ -146,6 +146,14 @@ export default function Page() {
             to apply. With fewer than 10 students per class, the program ensures personalized attention, fostering a
             learning environment conducive to young minds.&nbsp;
           </Lead>
+          <div className="font-bold text-slate-800">
+            <p className="text-[18px] leading-[1.5]">Courses offered in Fall 2026 are:</p>
+            <p className="mt-2 text-[16px] leading-[1.875]">
+              {"✅ "}Geometric Transformations
+              <br />
+              {"✅ "}Complex Analysis, Part I
+            </p>
+          </div>
           <div className="space-y-2">
             <p className="font-semibold">
               <span>I. Set Theory and Beyond</span>
@@ -225,14 +233,6 @@ export default function Page() {
               differentiability is far more rigid than real differentiability and leads naturally to the concept of
               holomorphic functions.
             </Lead>
-          </div>
-          <div className="font-bold text-slate-800">
-            <p className="text-[18px] leading-[1.5]">Courses offered in Fall 2026 are</p>
-            <p className="mt-2 text-[16px] leading-[1.875]">
-              1. Geometric Transformations
-              <br />
-              2. Complex Analysis
-            </p>
           </div>
         </div>
 
