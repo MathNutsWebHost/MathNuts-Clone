@@ -13,7 +13,7 @@ export function SiteFooter() {
           </p>
         </div>
         <div className="pb-8 text-center text-[14px] leading-[1.79] text-[#162B6F]">
-          <p>©2023 by Mathnuts.org.&nbsp;</p>
+          <p>©2026 by Mathnuts.org.&nbsp;</p>
         </div>
       </div>
     </footer>

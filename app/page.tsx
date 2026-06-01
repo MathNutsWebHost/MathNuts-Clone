@@ -3,9 +3,11 @@
 import type React from "react"
 
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import { inter, oswald } from "@/lib/fonts"
 import { Lead, SectionTitle } from "@/components/section"
+import { Button } from "@/components/ui/button"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
@@ -106,7 +108,7 @@ export default function Page() {
         {/* Homework */}
         <SectionTitle>HOMEWORK</SectionTitle>
         <Lead className="mt-4">
-          To reinforce the lecture discussions, students are assigned weekly homework that takes approximately 1- 2
+          To reinforce the lecture discussions, students are assigned weekly homework that takes approximately 1 - 2
           hours of their time. These assignments aim to enhance their ability to write proofs and verify understanding
           and appreciation of the subject matter.
         </Lead>
@@ -138,61 +140,25 @@ export default function Page() {
           <Lead>Note that mathematics progresses from answers to questions!</Lead>
         </div>
 
-        {/* Application Process */}
-        <SectionTitle>APPLICATION PROCESS</SectionTitle>
-        <div className="mt-4 space-y-4">
-          <Lead>
-            If you are enthusiastic about joining our program, we kindly request you to complete the application form.
-            All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
-            to applicants who pass the first screening of the submitted application. The application deadline for the
-            next batch is December 15th, 2025 and the class start date is January first week.
-          </Lead>
-          <Lead>
-            Our admission process happens biannually, with applications accepted for the Fall cycle (April 15th to June
-            2nd) and the Spring cycle (October 15th to December 15th). 
-            Fall classes commence in September, while spring classes begin in the first week of January. We look forward to receiving your
-            applications during these periods.&nbsp; For additional details or inquiries, please contact us at{" "}
-            <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
-              mathnuts@googlegroups.com
-            </a>
-            .
-          </Lead>
-          <Lead>
-            <span className="font-bold">Applications open now for Spring 2026 session (January 4th to May 17th 2026).
-            </span>
-          </Lead>
-          <Lead>
-            <span className="font-bold">
-            Application deadline: December 15th 2025.
-            </span>
-          </Lead>
-          <Lead>
-            <span className="font-bold">
-            <a href="https://www.mathnuts.org/apply" className="underline">
-            Apply Now
-            </a>
-            </span>
-          </Lead>
-        </div>
-
-        {/* Our History */}
-        <SectionTitle>OUR HISTORY</SectionTitle>
-        <Lead className="mt-4">
-          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp.
-        </Lead>
-
-        {/* Upcoming Courses */}
-        <SectionTitle>UPCOMING COURSES</SectionTitle>
+        {/* Courses */}
+        <SectionTitle>COURSES</SectionTitle>
         <div className="mt-4 space-y-6">
           <Lead>
             There are two strands, one for students aged 10/11, and one for age 12/13. Students worldwide are eligible
             to apply. With fewer than 10 students per class, the program ensures personalized attention, fostering a
             learning environment conducive to young minds.&nbsp;
           </Lead>
+          <div className="font-bold text-slate-800">
+            <p className="text-[18px] leading-[1.5]">Courses offered in Fall 2026 are:</p>
+            <p className="mt-2 text-[16px] leading-[1.875]">
+              {"✅ "}Geometric Transformations (Ages 10–11)
+              <br />
+              {"✅ "}Complex Analysis, Part I (Ages 12–13)
+            </p>
+          </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>I. Set Theory and Beyond</span>
-              <span>Fall (September - December)</span>
             </p>
             <Lead>
 
@@ -200,9 +166,8 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>II. Geometric Transformations</span>
-              <span>Spring (January - May)</span>
             </p>
             <Lead>
               For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid's Elements;
@@ -217,9 +182,8 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>III. Affine and Projective geometries</span>
-              <span>Fall (September - December)</span>
             </p>
             <Lead>
               The goal of this course is to develop a clear grasp of the various geometries and their relationships to
@@ -232,9 +196,8 @@ export default function Page() {
             </Lead>
           </div>
           <div className="space-y-2">
-            <p className="font-semibold flex justify-between">
+            <p className="font-semibold">
               <span>IV. Non‑Euclidean geometry</span>
-              <span>Spring (January - May)</span>
             </p>
             <Lead>
               Although Non‑Euclidean geometry means geometries other than Euclidean geometry, the reference in
@@ -252,7 +215,79 @@ export default function Page() {
               student's ability to construct proofs.
             </Lead>
           </div>
+          <div className="space-y-2">
+            <p className="font-semibold">
+              <span>V. Complex Analysis, Part I</span>
+            </p>
+            <Lead>
+              This course introduces the foundational ideas of complex analysis, beginning with the metric‑space
+              language needed to discuss convergence, continuity, openness, closedness, compactness, and
+              connectedness. These concepts provide the setting in which functions of a complex variable are studied
+              rigorously. The course then turns to the geometry of curves in the complex plane. Students study
+              parametrized curves, smooth and piecewise smooth curves, tangents, lengths, and angles. This prepares the
+              ground for later topics such as contour integration and Cauchy's theorem. The next part of the course
+              develops the elementary transcendental functions of complex analysis. The complex exponential function is
+              introduced and studied in detail, followed by the complex trigonometric functions and their inverses.
+              Special attention is given to the new phenomena that arise in the complex plane, including periodicity,
+              multivalued inverses, and the role of branches. The course concludes with the differentiability of complex
+              functions. Students learn the definition of complex differentiability, compare it with differentiability
+              of real functions, and study the Cauchy–Riemann equations. The central theme is that complex
+              differentiability is far more rigid than real differentiability and leads naturally to the concept of
+              holomorphic functions.
+            </Lead>
+          </div>
         </div>
+
+        {/* Application Process */}
+        <SectionTitle>APPLICATION PROCESS</SectionTitle>
+        <div className="mt-4 space-y-4">
+          <Lead>
+            If you are enthusiastic about joining our program, we kindly request you to complete the application form.
+            All applicants must complete an algebra readiness test appropriate to the two age groups. This test is sent
+            to applicants who pass the first screening of the submitted application.
+          </Lead>
+          <Lead>
+            Our admissions process takes place twice a year, with application cycles for both Fall and Spring
+            enrollment.
+          </Lead>
+          <Lead>
+            Fall Session: Classes begin in September.
+            <br />
+            Spring Session: Classes begin in the first week of January.
+          </Lead>
+          <Lead>
+            <span className="font-bold">Applications for the Fall 2026 session are now open.</span> The application
+            deadline for the Fall 2026 cycle is <span className="font-bold">July 15, 2026</span>.
+          </Lead>
+          <Lead>
+            We look forward to receiving your application. For additional information or questions, please contact us at{" "}
+            <a href="mailto:mathnuts@googlegroups.com" className="underline hover:no-underline">
+              mathnuts@googlegroups.com
+            </a>
+            .
+          </Lead>
+          <Lead>
+            <span className="font-bold">
+              For Fall 2026, applications are being accepted only for Geometric Transformations and Complex Analysis,
+              Part I.
+            </span>
+          </Lead>
+          <div className="flex justify-center pt-2">
+            <Button
+              asChild
+              size="lg"
+              className="h-12 rounded-full px-10 text-base font-semibold text-white shadow-md transition-transform hover:scale-[1.03] bg-[#162B6F] hover:bg-[#0f1f52]"
+            >
+              <Link href="/apply">Apply Now</Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* Our History */}
+        <SectionTitle>OUR HISTORY</SectionTitle>
+        <Lead className="mt-4">
+          MathNuts was founded in 2021 by Dr. George Thomas, founder of Mathcamp, MathPath, and Epsilon Camp.
+        </Lead>
 
         {/* Founder */}
         <SectionTitle className="mt-16">Founder</SectionTitle>
