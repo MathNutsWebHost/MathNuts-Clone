@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useState } from "react"
 import { inter, oswald } from "@/lib/fonts"
 import { Lead, SectionTitle } from "@/components/section"
+import { Button } from "@/components/ui/button"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
@@ -270,13 +271,15 @@ export default function Page() {
               Part I.
             </span>
           </Lead>
-          <Lead>
-            <span className="text-2xl font-bold">
-              <a href="https://www.mathnuts.org/apply" className="underline">
-                Apply Now
-              </a>
-            </span>
-          </Lead>
+          <div className="flex justify-center pt-2">
+            <Button
+              asChild
+              size="lg"
+              className="h-12 rounded-full px-10 text-base font-semibold shadow-md transition-transform hover:scale-[1.03]"
+            >
+              <a href="https://www.mathnuts.org/apply">Apply Now</a>
+            </Button>
+          </div>
         </div>
 
         {/* Our History */}
