@@ -1,10 +1,5 @@
-"use client"
-
-import type React from "react"
-
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
 import { inter, oswald } from "@/lib/fonts"
 import { Lead, SectionTitle } from "@/components/section"
 import { Button } from "@/components/ui/button"
@@ -12,39 +7,6 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
 export default function Page() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [success, setSuccess] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-
-  async function handleContactSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSuccess(null)
-    setError(null)
-    setIsSubmitting(true)
-
-    try {
-      const formEl = e.currentTarget
-      const fd = new FormData(formEl)
-
-      const res = await fetch("/api/contact/submit", {
-        method: "POST",
-        body: fd,
-      })
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}))
-        throw new Error(data?.error || "Failed to send message")
-      }
-
-      setSuccess("Thank you for your message! We'll get back to you soon.")
-      formEl.reset()
-    } catch (err: any) {
-      setError(err.message || "Something went wrong. Please try again.")
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   return (
     <div className={`${inter.className}`}>
       <SiteHeader />
@@ -312,83 +274,6 @@ export default function Page() {
             </p>
           </div>
         </div>
-
-        {/* Get in Touch Section */}
-        <section className="mt-20 mb-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[400px] shadow-lg">
-            {/* Left side - Contact Info */}
-            <div className="bg-[#3c4a8c] text-white p-8 lg:p-12 flex flex-col justify-center">
-              <h2 className="text-4xl lg:text-5xl font-bold mb-8" style={{ fontFamily: "Arial, sans-serif" }}>
-                Get in Touch
-              </h2>
-              <p className="text-base leading-relaxed mb-12 max-w-sm">
-                Thank you for your interest in Math Nuts. For general inquiries, please contact us using the Get in
-                Touch form. We look forward to hearing from you!
-              </p>
-              <div className="space-y-3">
-                <p className="text-base">(650) 492-8041</p>
-                <p className="text-base">mathnuts@googlegroups.com</p>
-              </div>
-            </div>
-
-            {/* Right side - Contact Form */}
-            <div className="bg-[#f5f5f5] p-8 lg:p-12 flex flex-col justify-center">
-              <form className="space-y-6" onSubmit={handleContactSubmit}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">First Name</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">Last Name</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    required
-                    className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm text-[#6b7bc4] mb-2 font-medium">Message</label>
-                  <textarea
-                    name="message"
-                    rows={6}
-                    className="w-full px-3 py-3 border border-gray-400 bg-white focus:outline-none focus:border-[#3c4a8c] resize-none transition-colors"
-                  />
-                </div>
-
-                {/* Status messages */}
-                <div className="min-h-[24px]" aria-live="polite">
-                  {success && <p className="text-green-600 text-sm">{success}</p>}
-                  {error && <p className="text-red-600 text-sm">{error}</p>}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-[#6b7bc4] hover:bg-[#5a6bb3] disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium transition-colors text-base"
-                >
-                  {isSubmitting ? "Sending..." : "Submit"}
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
 
         <div className="mb-20" />
       </main>
