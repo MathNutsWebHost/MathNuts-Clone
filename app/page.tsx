@@ -149,7 +149,7 @@ export default function Page() {
             learning environment conducive to young minds.&nbsp;
           </Lead>
           <div className="font-bold text-slate-800">
-            <p className="text-[18px] leading-[1.5]">Courses offered in Fall 2026 are:</p>
+            <p className="text-[18px] leading-[1.5]">Courses offered in Spring 2027 are:</p>
             <p className="mt-2 text-[16px] leading-[1.875]">
               {"✅ "}Geometric Transformations (Ages 10–11)
               <br />
@@ -238,6 +238,42 @@ export default function Page() {
           </div>
         </div>
 
+        <section aria-labelledby="future-courses-heading" className="mt-8 space-y-6 font-bold text-slate-800">
+          <div>
+            <h3 id="future-courses-heading" className="text-[18px] leading-[1.5]">Future courses:</h3>
+            <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
+              {[
+                "Geometric Transformations in the Euclidean Plane (Ages 10–11)",
+                "Non-Euclidean Geometries (Ages 10–11)",
+                "Affine and Projective Geometry (Ages 11–12)",
+                "Symmetry and the Idea of a Group (Ages 11–12)",
+                "Set Theory (Ages 12–13)",
+                "Conics as a Unified Theory (Ages 12–13)",
+              ].map((course) => (
+                <li key={course} className="flex items-baseline gap-2">
+                  <span aria-hidden="true" className="inline-block h-3 w-2 shrink-0 rotate-45 border-b-2 border-r-2 border-green-600" />
+                  <span>{course}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-[18px] leading-[1.5]">Courses for continuing students:</h3>
+            <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
+              {[
+                "Combinatorial Topology: Surfaces and Their Invariants (Ages 13–14)",
+                "Convex Geometry (Ages 13–14)",
+                "Higher-Dimensional Convexity and Polytopes (Ages 14–15, following Convex Geometry and sufficient preparation in linear algebra)",
+              ].map((course) => (
+                <li key={course} className="flex items-baseline gap-2">
+                  <span aria-hidden="true" className="inline-block h-3 w-2 shrink-0 rotate-45 border-b-2 border-r-2 border-green-600" />
+                  <span>{course}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         {/* Application Process */}
         <SectionTitle>APPLICATION PROCESS</SectionTitle>
         <div className="mt-4 space-y-4">
@@ -256,8 +292,8 @@ export default function Page() {
             Spring Session: Classes begin in the first week of January.
           </Lead>
           <Lead>
-            <span className="font-bold">Applications for the Fall 2026 session are now open.</span> The application
-            deadline for the Fall 2026 cycle is <span className="font-bold">July 15, 2026</span>.
+            <span className="font-bold">Applications for the Spring 2027 session are now open.</span> The application
+            deadline for the Spring 2027 cycle is <span className="font-bold">December 15, 2026</span>.
           </Lead>
           <Lead>
             We look forward to receiving your application. For additional information or questions, please contact us at{" "}
@@ -265,12 +301,6 @@ export default function Page() {
               mathnuts@googlegroups.com
             </a>
             .
-          </Lead>
-          <Lead>
-            <span className="font-bold">
-              For Fall 2026, applications are being accepted only for Geometric Transformations and Complex Analysis,
-              Part I.
-            </span>
           </Lead>
           <div className="flex justify-center pt-2">
             <Button
