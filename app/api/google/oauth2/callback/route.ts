@@ -11,14 +11,15 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const code = url.searchParams.get("code")
   const state = url.searchParams.get("state")
-  const savedState = cookies().get("google_oauth_state")?.value
+  const cookieStore = await cookies()
+  const savedState = cookieStore.get("google_oauth_state")?.value
 
   if (!code || !state || !savedState || state !== savedState) {
     return NextResponse.json({ error: "Invalid or missing OAuth state/code" }, { status: 400 })
   }
 
   // Clear the state cookie
-  cookies().set("google_oauth_state", "", { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 0 })
+  cookieStore.set("google_oauth_state", "", { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 0 })
 
   const { origin } = url
   const redirectUri = `${origin}/api/google/oauth2/callback`
