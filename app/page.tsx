@@ -295,7 +295,7 @@ export default function Page() {
           {/* Use a remote <img> tag to avoid remote image config */}
           <div className="w-[200px] h-[199px] rounded-full overflow-hidden border shadow">
             <img
-              src="/images/design-mode/George%20Thomas.jpg"
+              src="/images/design-mode/george-thomas.jpg"
               alt="George R. Thomas portrait"
               width={200}
               height={199}
