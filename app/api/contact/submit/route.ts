@@ -67,8 +67,10 @@ export async function POST(req: NextRequest) {
     })
 
     if (!tokenRes.ok) {
-      const info = await tokenRes.text()
-      return NextResponse.json({ error: `Failed to get access token: ${info}` }, { status: 500 })
+      return NextResponse.json(
+        { error: "Your message could not be sent because our email service is temporarily unavailable. Please email mathnuts@googlegroups.com or call (650) 492-8041." },
+        { status: 503 },
+      )
     }
     const tokenJson = (await tokenRes.json()) as { access_token?: string }
     const accessToken = tokenJson.access_token
