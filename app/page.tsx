@@ -286,7 +286,7 @@ export default function Page() {
           <div className="w-full max-w-[280px] aspect-square rounded-full overflow-hidden border bg-white shadow">
             <img
               src="/images/design-mode/george-thomas-october.png"
-              alt="George R. Thomas portrait"
+              alt="George-Rubin Thomas portrait"
               width={280}
               height={280}
               className="w-full h-full object-contain object-center"
@@ -298,7 +298,7 @@ export default function Page() {
               programs for students showing high promise in mathematics. He has founded summer programs for students showing high promise in mathematics.
             </p>
             <p className={`${oswald.className} text-[#162B6F] text-[18px] text-center sm:text-left mt-2`}>
-              George R. Thomas
+              George-Rubin Thomas
             </p>
           </div>
         </div>
