@@ -144,7 +144,7 @@ export default function Page() {
         <SectionTitle>COURSES</SectionTitle>
         <div className="mt-4 space-y-6">
           <Lead>
-            There are three strands: Student ages 10 &amp;11, 11&amp;12, and 12&amp;13. With fewer than 10 students per class and a learning environment conducive to youngsters showing high promise in mathematics.
+            There are three strands: Student ages 10 &amp;11, 11&amp;12, and 12&amp;13. Each class has fewer than 10 students, providing a conducive learning environment that nurtures young learners showing high promise in mathematics.
           </Lead>
           <div className="font-bold text-slate-800">
             <p className="text-[18px] leading-[1.5]">Courses offered are:</p>
