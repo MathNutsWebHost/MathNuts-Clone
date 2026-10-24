@@ -283,7 +283,7 @@ export default function Page() {
         <SectionTitle className="mt-16">Founder</SectionTitle>
         <div className="mt-6 grid gap-6 sm:grid-cols-[280px_1fr] items-start">
           {/* Use a remote <img> tag to avoid remote image config */}
-          <div className="w-full max-w-[280px] aspect-square rounded-full overflow-hidden border bg-white shadow">
+          <div className="w-full max-w-[280px] aspect-square rounded-full overflow-hidden border bg-white shadow sm:-mt-3">
             <img
               src="/images/design-mode/george-thomas-october.png"
               alt="George-Rubin Thomas portrait"
