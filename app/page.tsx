@@ -281,15 +281,15 @@ export default function Page() {
 
         {/* Founder */}
         <SectionTitle className="mt-16">Founder</SectionTitle>
-        <div className="mt-6 grid gap-4 sm:grid-cols-[200px_1fr] items-start">
+        <div className="mt-6 grid gap-6 sm:grid-cols-[280px_1fr] items-start">
           {/* Use a remote <img> tag to avoid remote image config */}
-          <div className="w-[200px] h-[199px] rounded-full overflow-hidden border shadow">
+          <div className="w-full max-w-[280px] aspect-square rounded-full overflow-hidden border bg-white shadow">
             <img
               src="/images/design-mode/george-thomas-october.png"
               alt="George R. Thomas portrait"
-              width={200}
-              height={199}
-              className="w-full h-full object-cover"
+              width={280}
+              height={280}
+              className="w-full h-full object-contain object-center"
             />
           </div>
           <div>
