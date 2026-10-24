@@ -169,7 +169,7 @@ export default function Page() {
             <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
               <li>Combinatorial Topology: Surfaces and Their Invariants (Ages 13–14)</li>
               <li>Convex Geometry (Ages 13–14)</li>
-              <li>Higher-Dimensional Convexity and Polytopes (Ages 14–15) -- Prerequisites: Convex Geometry, Introductory course in linear algebra</li>
+              <li>Higher-Dimensional Convexity and Polytopes (Ages 14–15) Prerequisites: Prior coursework in convex geometry and introductory linear algebra.</li>
             </ul>
           </div>
           <div className="space-y-2">
