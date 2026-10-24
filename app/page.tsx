@@ -144,30 +144,37 @@ export default function Page() {
         <SectionTitle>COURSES</SectionTitle>
         <div className="mt-4 space-y-6">
           <Lead>
-            There are two strands, one for students aged 10/11, and one for age 12/13. Students worldwide are eligible
-            to apply. With fewer than 10 students per class, the program ensures personalized attention, fostering a
-            learning environment conducive to young minds.&nbsp;
+            There are three strands: Student ages 10 &amp;11, 11&amp;12, and 12&amp;13. With fewer than 10 students per class and a learning environment conducive to youngsters showing high promise in mathematics.
           </Lead>
           <div className="font-bold text-slate-800">
-            <p className="text-[18px] leading-[1.5]">Courses offered in Spring 2027 are:</p>
-            <p className="mt-2 text-[16px] leading-[1.875]">
-              {"✅ "}Geometric Transformations (Ages 10–11)
-              <br />
-              {"✅ "}Complex Analysis, Part I (Ages 12–13)
-            </p>
+            <p className="text-[18px] leading-[1.5]">Courses offered are:</p>
+            <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
+              {[
+                "Geometric Transformations (Ages 10–11)",
+                "Non-Euclidean geometries (Ages 10–11)",
+                "Affine and Projective Geometry (Ages 11–12)",
+                "Symmetry and the Idea of a Group (Ages 11–12)",
+                "Set Theory (Ages 12–13)",
+                "Algebra of Conics (Ages 12–13)",
+              ].map((course) => (
+                <li key={course} className="flex items-baseline gap-2">
+                  <span aria-hidden="true">{"✅"}</span>
+                  <span>{course}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="font-bold text-slate-800">
+            <p className="text-[18px] leading-[1.5]">Courses for continuing students:</p>
+            <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
+              <li>Combinatorial Topology: Surfaces and Their Invariants (Ages 13–14)</li>
+              <li>Convex Geometry (Ages 13–14)</li>
+              <li>Higher-Dimensional Convexity and Polytopes (Ages 14–15) -- Prerequisites: Convex Geometry, Introductory course in linear algebra</li>
+            </ul>
           </div>
           <div className="space-y-2">
             <p className="font-semibold">
-              <span>I. Set Theory and Beyond</span>
-            </p>
-            <Lead>
-
-              This course, Axiomatic Set Theory, explores the foundational principles of set theory using an axiomatic approach, focusing on the concepts of well-ordered sets and the hierarchy of infinities. Students will learn the wonderful constructions of the natural numbers, rationals and real numbers out of the empty set and the axioms, understand the properties of infinite sets, and delve into the fascinating realm of transfinite numbers. 
-            </Lead>
-          </div>
-          <div className="space-y-2">
-            <p className="font-semibold">
-              <span>II. Geometric Transformations</span>
+              <span>I. Geometric Transformations</span>
             </p>
             <Lead>
               For over two thousand years Euclidean geometry remained the synthetic geometry of Euclid's Elements;
@@ -179,6 +186,14 @@ export default function Page() {
               Euclidean plane. These transformations will be seen to describe ALL the symmetry patterns in the plane
               (and 3‑D which we don't cover). The course begins with an introduction to Analytic geometry which is also
               useful for Calculus.
+            </Lead>
+          </div>
+          <div className="space-y-2">
+            <p className="font-semibold">
+              <span>II. Non‑Euclidean geometry</span>
+            </p>
+            <Lead>
+              {"Although Non‑Euclidean geometry means geometries other than Euclidean geometry, the reference in mathematics is to two particular geometries – Elliptic geometry and Hyperbolic geometry. The impression of school students and the public in general is that geometry consists of Euclidean geometry, whereas Euclidean geometry is only one of many geometries. However, there are two geometries which are related to Euclidean geometry and whose study gives a greater understanding of what Euclidean geometry is really about. There are three geometries called constant curvature geometries where a 'plane' of the geometry has a curvature that does not change. In Euclidean geometry, the plane is flat in the sense that its curvature is zero. In contrast, a hyperbolic plane has negative curvature like that of a horse saddle and an elliptic plane has positive curvature like a sphere. While the emphasis in this course is these two geometries, we begin with those concepts of Euclidean geometry in which it differs — from the other two constant‑curvature geometries — and the study leads us to Elliptic and Hyperbolic geometry. This course is ideal for building in the student an appreciation of the idea of proof in mathematics and to improve the student's ability to construct proofs."}
             </Lead>
           </div>
           <div className="space-y-2">
@@ -197,82 +212,27 @@ export default function Page() {
           </div>
           <div className="space-y-2">
             <p className="font-semibold">
-              <span>IV. Non‑Euclidean geometry</span>
+              <span>IV. Symmetry and the Idea of a Group</span>
             </p>
             <Lead>
-              Although Non‑Euclidean geometry means geometries other than Euclidean geometry, the reference in
-              mathematics is to two particular geometries – Elliptic geometry and Hyperbolic geometry. The impression of
-              school students and the public in general is that geometry consists of Euclidean geometry, whereas
-              Euclidean geometry is only one of many geometries. However, there are two geometries which are related to
-              Euclidean geometry and whose study gives a greater understanding of what Euclidean geometry is really
-              about. There are three geometries called constant curvature geometries where a 'plane' of the geometry has
-              a curvature that does not change. In Euclidean geometry, the plane is flat in the sense that its curvature
-              is zero. In contrast, a hyperbolic plane has negative curvature like that of a horse saddle and an
-              elliptic plane has positive curvature like a sphere. While the emphasis in this course is these two
-              geometries, we begin with those concepts of Euclidean geometry in which it differs — from the other two
-              constant‑curvature geometries — and the study leads us to Elliptic and Hyperbolic geometry. This course is
-              ideal for building in the student an appreciation of the idea of proof in mathematics and to improve the
-              student's ability to construct proofs.
+              What is symmetry, and how can we describe it mathematically? Beginning with the rigid motions that carry a square onto itself, this course explores the symmetries of plane figures, repeating patterns, and the Platonic solids. Along the way, students discover the idea of a group—a structure that captures how symmetries combine.
+            </Lead>
+            <Lead>
+              We begin by finding and combining the rotations and reflections of a square. Does the order of two transformations matter? Can a few transformations generate all the others? How can we prove that our list of symmetries is complete? These questions lead naturally to composition, identity, inverses, and the group axioms. Our investigations then extend to other figures and to repeating designs. Students explore strip patterns, which repeat along a band, and wallpaper patterns, which repeat across the plane. Translations, rotations, reflections, and glide reflections provide the tools for identifying, comparing, and creating patterns with prescribed symmetries. Moving into three dimensions, we investigate the Platonic solids: the tetrahedron, cube, octahedron, dodecahedron, and icosahedron. Students examine their rotational and reflection symmetries and explore relationships among their vertices, edges, and faces.
+            </Lead>
+            <Lead>
+              Thus, this course develops the group concept through a sustained mathematical investigation of symmetry. By exploring rigid motions of figures and solids, strip patterns, and wallpaper patterns, students discover how groups arise naturally and provide a common language for their observations. We encourage students subsequently to take a standard course in group theory at school or university, where they can develop the abstract theory more systematically, appreciate its broader reach, and recognize symmetry as a central example that gives the theory meaning.
             </Lead>
           </div>
           <div className="space-y-2">
             <p className="font-semibold">
-              <span>V. Complex Analysis, Part I</span>
+              <span>V. Set Theory and Beyond</span>
             </p>
             <Lead>
-              This course introduces the foundational ideas of complex analysis, beginning with the metric‑space
-              language needed to discuss convergence, continuity, openness, closedness, compactness, and
-              connectedness. These concepts provide the setting in which functions of a complex variable are studied
-              rigorously. The course then turns to the geometry of curves in the complex plane. Students study
-              parametrized curves, smooth and piecewise smooth curves, tangents, lengths, and angles. This prepares the
-              ground for later topics such as contour integration and Cauchy's theorem. The next part of the course
-              develops the elementary transcendental functions of complex analysis. The complex exponential function is
-              introduced and studied in detail, followed by the complex trigonometric functions and their inverses.
-              Special attention is given to the new phenomena that arise in the complex plane, including periodicity,
-              multivalued inverses, and the role of branches. The course concludes with the differentiability of complex
-              functions. Students learn the definition of complex differentiability, compare it with differentiability
-              of real functions, and study the Cauchy–Riemann equations. The central theme is that complex
-              differentiability is far more rigid than real differentiability and leads naturally to the concept of
-              holomorphic functions.
+              This course, Axiomatic Set Theory, explores the foundational principles of set theory using an axiomatic approach, focusing on the concepts of well-ordered sets and the hierarchy of infinities. Students will learn the wonderful constructions of the natural numbers, rationals and real numbers out of the empty set and the axioms, understand the properties of infinite sets, and delve into the fascinating realm of transfinite numbers.
             </Lead>
           </div>
         </div>
-
-        <section aria-labelledby="future-courses-heading" className="mt-8 space-y-6 font-bold text-slate-800">
-          <div>
-            <h3 id="future-courses-heading" className="text-[18px] leading-[1.5]">Future courses:</h3>
-            <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
-              {[
-                "Geometric Transformations in the Euclidean Plane (Ages 10–11)",
-                "Non-Euclidean Geometries (Ages 10–11)",
-                "Affine and Projective Geometry (Ages 11–12)",
-                "Symmetry and the Idea of a Group (Ages 11–12)",
-                "Set Theory (Ages 12–13)",
-                "Conics as a Unified Theory (Ages 12–13)",
-              ].map((course) => (
-                <li key={course} className="flex items-baseline gap-2">
-                  <span aria-hidden="true" className="inline-block h-3 w-2 shrink-0 rotate-45 border-b-2 border-r-2 border-green-600" />
-                  <span>{course}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-[18px] leading-[1.5]">Courses for continuing students:</h3>
-            <ul className="mt-2 space-y-1 text-[16px] leading-[1.875]">
-              {[
-                "Combinatorial Topology: Surfaces and Their Invariants (Ages 13–14)",
-                "Convex Geometry (Ages 13–14)",
-                "Higher-Dimensional Convexity and Polytopes (Ages 14–15, following Convex Geometry and sufficient preparation in linear algebra)",
-              ].map((course) => (
-                <li key={course} className="flex items-baseline gap-2">
-                  <span aria-hidden="true" className="inline-block h-3 w-2 shrink-0 rotate-45 border-b-2 border-r-2 border-green-600" />
-                  <span>{course}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
 
         {/* Application Process */}
         <SectionTitle>APPLICATION PROCESS</SectionTitle>
